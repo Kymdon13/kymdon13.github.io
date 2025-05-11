@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>CMake 模块和包 - Net Nook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A collection of notes and resources in learning and building.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Net Nook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://kymdon13.github.io/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="include"><a class="header" href="#include">include()</a></h2>
+<p>在 cmake 中引入模块就相当于在 C++ 的引入头文件，通常用于引入一些<strong>工具模块</strong>。</p>
+<p>例如，我们在工作目录下创建一个 <code>cmake</code> 目录，里面专门放一些辅助我们编写 <code>CMakeLists.txt</code> 的工具宏：</p>
+<pre><code>.
+├── build/
+├── cmake/
+├── CMakeLists.txt
+└── src/
+</code></pre>
+<p>然后我们创建一个 <code>utils.cmake</code>，里面定义了一个宏：</p>
+<pre><code class="language-cmake"># utils.cmake
+function(my_custom_function)
+    message(STATUS "This is a custom function!")
+endfunction()
+</code></pre>
+<p>用 <code>include()</code> 引入这个模块后，我们就可以在 <code>CMakeLists.txt</code> 中使用这个宏：</p>
+<pre><code class="language-cmake">include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake)
+my_custom_function() # 输出：This is a custom function!
+</code></pre>
+<h3 id="作用域"><a class="header" href="#作用域">作用域</a></h3>
+<p>上面提到，<code>include()</code> 引入模块就像 C++ 引入头文件，cmake 在运行时遇到 <code>include()</code> 就直接加载对应文件，相当于在调用处直接插入代码，所以模块不会有自己的作用域。</p>
+<p>例如，我们定义一个 <code>cmake/set.cmake</code>：</p>
+<pre><code class="language-cmake">set(VAR 123)
+</code></pre>
+<p>然后我们在主 <code>CMakeLists.txt</code> 引入这个包：</p>
+<pre><code class="language-cmake">include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/set.cmake)
+message(${VAR}) # 输出：123，这个变量是set.cmake新建的
+</code></pre>
+<h3 id="include-的搜索路径"><a class="header" href="#include-的搜索路径">include() 的搜索路径</a></h3>
+<p><code>include()</code> 的搜索顺序是：</p>
+<ul>
+<li>首先搜索 <code>CMAKE_MODULE_PATH</code>；</li>
+<li>再搜索 cmake 的默认模块路径，一般是 cmake 安装目录下的 <code>Modules</code> 目录（我的是 <code>/usr/share/cmake-3.16/Modules</code>）。</li>
+</ul>
+<h5 id="自定义搜索路径"><a class="header" href="#自定义搜索路径">自定义搜索路径</a></h5>
+<p>如果你想设置 <code>include()</code> 的搜索路径，可以这样写：</p>
+<pre><code class="language-cmake">set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/path/to/modules1")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/path/to/modules2")
+</code></pre>
+<p>每个路径会自动以 <code>;</code> 分隔：<code>CMAKE_MODULE_PATH = /path/to/modules1;/path/to/modules2</code>。</p>
+<blockquote>
+<p>注意：如果你用上面的方法设置了 <code>CMAKE_MODULE_PATH</code>，那么引入时不要加后缀 <code>.cmake</code> ：<code>include(module_name)</code>，不然会找不到。</p>
+</blockquote>
+<h2 id="find_package"><a class="header" href="#find_package">find_package()</a></h2>
+<p><code>find_package()</code> 有两种主要工作模式：Module Mode 和 Config Mode。</p>
+<h3 id="module-mode模块模式"><a class="header" href="#module-mode模块模式">Module Mode（模块模式）</a></h3>
+<p>该模式下 <code>find_package()</code> 会匹配名为 <code>Find&lt;PackageName&gt;.cmake</code> 的文件。</p>
+<h5 id="搜索路径"><a class="header" href="#搜索路径">搜索路径</a></h5>
+<p>搜索路径和 <code>include()</code> 一样：</p>
+<ul>
+<li>首先搜索 <code>CMAKE_MODULE_PATH</code>；</li>
+<li>再搜索 cmake 的默认模块路径，一般是 cmake 安装目录下的 <code>Modules</code> 目录（我的是 <code>/usr/share/cmake-3.16/Modules</code>）。</li>
+</ul>
+<blockquote>
+<p>但是注意，这里要匹配的是 <code>Find&lt;PackageName&gt;.cmake</code>，例如：</p>
+<pre><code class="language-cmake">find_package(set REQUIRED) # 只能匹配 "Findset.cmake"
+</code></pre>
+</blockquote>
+<h5 id="主要用途"><a class="header" href="#主要用途">主要用途</a></h5>
+<p><code>Find&lt;PackageName&gt;.cmake</code> 文件通常是由 CMake 官方或者社区编写的脚本，用来<strong>猜测</strong>和<strong>探测</strong>系统上可能安装了哪些版本的库、库文件在哪里、头文件在哪里等等</p>
+<blockquote>
+<p>这种模式是为那些没有提供自己 CMake 配置文件的库准备的，所以要靠 cmake 自己去猜它们在哪里。</p>
+</blockquote>
+<h3 id="config-mode配置模式"><a class="header" href="#config-mode配置模式">Config Mode（配置模式）</a></h3>
+<p>该模式下会匹配 <code>&lt;PackageName&gt;Config.cmake</code> 和 <code>&lt;packagename&gt;-config.cmake</code>。</p>
+<p>例如我们找一个不存在的包：</p>
+<pre><code class="language-cmake">find_package(set CONFIG REQUIRED)
+# 报错：
+# Could not find a package configuration file provided by "set" with any of
+# the following names:
+# setConfig.cmake
+# set-config.cmake
+</code></pre>
+<h5 id="搜索路径-1"><a class="header" href="#搜索路径-1">搜索路径</a></h5>
+<p>一般的搜索路径有：</p>
+<ul>
+<li><code>/usr/lib/cmake/&lt;PackageName&gt;</code>；</li>
+<li><code>/usr/share/cmake/&lt;PackageName&gt;</code>；</li>
+<li><code>/usr/local/lib/cmake/&lt;PackageName&gt;</code>；</li>
+<li><code>/usr/local/share/cmake/&lt;PackageName&gt;</code>。</li>
+</ul>
+<p>你也可以通过设置 <code>CMAKE_PREFIX_PATH</code> 变量告诉 CMake 应该去哪找：</p>
+<pre><code>cmake -DCMAKE_INSTALL_PREFIX=/path/to/&lt;PackageName&gt;Config.cmake &lt;path/to/CMakeLists.txt&gt;
+</code></pre>
+<h5 id="主要用途-1"><a class="header" href="#主要用途-1">主要用途</a></h5>
+<p><code>&lt;PackageName&gt;Config.cmake</code> 通常是<strong>库项目自身在安装时生成的</strong>，它们会告诉 cmake 库在哪里、头文件在哪里、依赖哪些其他库、提供了哪些 CMake 目标 (targets) 等等。</p>
+<h3 id="find_dependency"><a class="header" href="#find_dependency">find_dependency()</a></h3>
+<p>和 <code>find_package()</code> 功能上相似，但是：</p>
+<ul>
+<li><code>find_dependency()</code> 是一个宏，好像主要用于主项目；</li>
+<li><code>find_package()</code> 是内置命令，好像主要用在模块的配置文件中。</li>
+</ul>
+<h3 id="为什么推荐使用-config-模式如果库支持的话"><a class="header" href="#为什么推荐使用-config-模式如果库支持的话">为什么推荐使用 CONFIG 模式（如果库支持的话）？</a></h3>
+<ul>
+<li><strong>更准确和健壮：</strong> Config 文件是由库项目自身提供的，相比于 Find 模块的“猜测”，Config 模式更不容易出错。</li>
+<li><strong>提供现代 CMake 目标：</strong> 使用 Config 模式找到的包通常会定义并导出 CMake 目标（比如 <code>protobuf::libprotobuf</code>, <code>grpc::grpc++</code>）。在 <code>target_link_libraries()</code> 中使用这些目标是链接库的现代、推荐方式。CMake 会自动处理链接所需的头文件路径、库文件路径以及其他依赖关系。</li>
+</ul>
+<h2 id="interface-和-imported-标志"><a class="header" href="#interface-和-imported-标志">INTERFACE 和 IMPORTED 标志</a></h2>
+<p>在 CMake 中，<code>add_library()</code> 和 <code>add_executable()</code> 命令用于定义构建目标。除了 <code>STATIC</code> (静态库)、<code>SHARED</code> (动态库)、<code>MODULE</code> (模块库) 和可执行文件这些类型外，还有一些特殊的标志或概念来描述目标的性质和使用方式。<code>IMPORTED</code> 和 <code>INTERFACE</code> 就是其中非常重要的两个。</p>
+<h3 id="interface接口"><a class="header" href="#interface接口">INTERFACE（接口）</a></h3>
+<p><code>INTERFACE</code> 可以用来描述两种情况：</p>
+<h4 id="interface-库目标interface-library-target"><a class="header" href="#interface-库目标interface-library-target">INTERFACE 库目标（INTERFACE Library Target）</a></h4>
+<h5 id="库目标定义"><a class="header" href="#库目标定义">库目标定义</a></h5>
+<p>使用 <code>add_library(&lt;target_name&gt; INTERFACE)</code> 命令创建的库目标。</p>
+<h5 id="特点"><a class="header" href="#特点">特点</a></h5>
+<ul>
+<li><strong>不生成任何构建输出文件</strong>，比如 <code>.a</code>, <code>.so</code>, <code>.dll</code>，只存在于构建系统中。</li>
+</ul>
+<h5 id="主要用途-2"><a class="header" href="#主要用途-2">主要用途</a></h5>
+<p>用来分组和封装一组供其他目标使用的使用要求（Usage Requirements），其中使用要求包含：</p>
+<ul>
+<li>要包含的目录；</li>
+<li>要链接的其他库；</li>
+<li>要添加的编译定义（例如添加 <code>#define</code>）和编译选项。</li>
+</ul>
+<p><strong>如何使用：</strong></p>
+<pre><code class="language-cmake">target_include_directories(&lt;target_name&gt; INTERFACE ...)
+target_link_libraries(&lt;target_name&gt; INTERFACE ...)
+target_compile_definitions(&lt;target_name&gt; INTERFACE ...)
+target_compile_options(&lt;target_name&gt; INTERFACE ...)
+</code></pre>
+<p>上面的命令可以为这个 <code>INTERFACE</code> 目标设置使用要求。</p>
+<p><strong>如何依赖：</strong></p>
+<p>其他目标（无论是静态库、动态库还是可执行文件）可以通过下面的命令来“链接”到这个 <code>INTERFACE</code> 目标。</p>
+<pre><code class="language-cmake">target_link_libraries(&lt;another_target&gt; PUBLIC|PRIVATE|INTERFACE &lt;target_name&gt;)
+</code></pre>
+<p>这里的“链接”不是传统的二进制链接，而是表示 <code>&lt;another_target&gt;</code> 将继承 <code>&lt;target_name&gt;</code> 定义的所有 <code>INTERFACE</code> 使用要求。</p>
+<h5 id="应用示例"><a class="header" href="#应用示例">应用示例</a></h5>
+<p><strong>纯头文件库 (Header-Only Libraries)：</strong></p>
+<p>比如很多现代 C++ 模板库。它们只有头文件，不需要编译成 <code>.o</code> 文件或库文件。你可以</p>
+<pre><code class="language-cmake"># 定义目标
+add_library(MyHeaderOnlyLib INTERFACE)
+
+# 指定头文件路径
+target_include_directories(MyHeaderOnlyLib INTERFACE ${MyHeaderOnlyLib_SOURCE_DIR}/include)
+
+### 其他库只要写下面这个命令，它们的包含目录就会自动加上 MyHeaderOnlyLib 的头文件路径
+target_link_libraries(&lt;another_target&gt; PUBLIC MyHeaderOnlyLib)
+</code></pre>
+<p><strong>打包一组编译器标志或定义：</strong></p>
+<p>创建一个 <code>INTERFACE</code> 目标，为其设置一组特定的编译定义或选项，然后让需要这些选项的其他目标链接到它。</p>
+<p><strong>分组外部依赖：</strong></p>
+<p>创建一个 <code>INTERFACE</code> 目标来代表一个概念上的功能模块，然后用 <code>target_link_libraries(&lt;target_name&gt; INTERFACE &lt;dependency1&gt; &lt;dependency2&gt; ...)</code> 将其链接到多个实际的库目标。其他目标只需链接这个 <code>INTERFACE</code> 目标，就会自动链接到其所有依赖的库。</p>
+<h4 id="interface-属性interface-properties"><a class="header" href="#interface-属性interface-properties">INTERFACE 属性（INTERFACE Properties）</a></h4>
+<p>除了用于定义 <code>INTERFACE</code> 库目标外，<code>INTERFACE</code> 关键字还用在：</p>
+<ul>
+<li><code>target_include_directories</code>；</li>
+<li><code>target_compile_definitions</code>；</li>
+<li><code>target_link_libraries</code>。</li>
+</ul>
+<p>例如：</p>
+<pre><code class="language-cmake">target_include_directories(MyLib PUBLIC include PRIVATE src INTERFACE include/public_api)
+</code></pre>
+<p>表示：</p>
+<ul>
+<li><code>PUBLIC include</code>：<code>MyLib</code> 自身需要编译 <code>include</code> 目录下的文件，并且任何链接到 <code>MyLib</code> 的目标也需要这个包含路径。</li>
+<li><code>PRIVATE src</code>：<code>MyLib</code> 自身需要编译 <code>src</code> 目录下的文件，但这个路径不会传递给链接它的目标。</li>
+<li><code>INTERFACE include/public_api</code>：<code>MyLib</code> 自身不需要这个包含路径，但任何链接到 <code>MyLib</code> 的目标都需要这个包含路径。</li>
+</ul>
+<h3 id="imported导入"><a class="header" href="#imported导入">IMPORTED（导入）</a></h3>
+<p><code>IMPORTED</code> 标志用于描述那些<strong>不是由当前 CMake 项目构建</strong>，而是<strong>预先存在于系统上</strong>或由<strong>其他构建过程生成的</strong>目标。</p>
+<h5 id="定义"><a class="header" href="#定义">定义</a></h5>
+<p>通常用下面的命令来定义一个导入目标。这里的 <code>&lt;type&gt;</code> 可以是 <code>STATIC</code>, <code>SHARED</code>, <code>MODULE</code>。</p>
+<pre><code class="language-cmake">add_library(&lt;target_name&gt; &lt;type&gt; IMPORTED)
+add_executable(&lt;target_name&gt; IMPORTED)
+</code></pre>
+<h5 id="主要用途-3"><a class="header" href="#主要用途-3">主要用途</a></h5>
+<p>在当前 CMake 项目中创建一个对外部已存在二进制文件（库或可执行文件）的<strong>引用</strong>或<strong>代理</strong>。这样当前项目就可以使用 CMake 的目标管理机制来链接和依赖这些外部二进制文件，就像它们是在当前项目中构建的一样。</p>
+<h5 id="应用示例-1"><a class="header" href="#应用示例-1">应用示例</a></h5>
+<p>导入外部库时，通过 <code>find_package(&lt;PackageName&gt; CONFIG ...)</code> 命令加载的 <code>&lt;PackageName&gt;Config.cmake</code> 文件，会自动定义一个或多个 <code>IMPORTED</code> 目标。</p>
+<p>这些由 <code>find_package</code> 创建的导入目标通常带有双冒号 <code>::</code> (例如 <code>Protobuf::libprotobuf</code>, <code>grpc::grpc++</code>)，表示这是一个<strong>别名或导入目标</strong>。</p>
+<p>在定义了导入目标后，需要设置它的位置以及使用要求。例如：</p>
+<pre><code class="language-cmake"># 定义目标
+add_library(&lt;target_name&gt; STATIC IMPORTED)
+
+# 设置导入库的实际文件路径
+SET_TARGET_PROPERTY(&lt;target_name&gt; IMPORTED_LOCATION /path/to/the/library/file)
+
+# 设置链接该导入目标时需要添加的包含目录
+SET_TARGET_PROPERTY(&lt;target_name&gt; INTERFACE_INCLUDE_DIRECTORIES /path/to/its/include/dir)
+
+# 设置该导入目标本身依赖的其他库
+SET_TARGET_PROPERTY(&lt;target_name&gt; IMPORTED_LINK_INTERFACE_LIBRARIES "dependency1;dependency2")
+</code></pre>
+<p><strong>如何使用：</strong> 其他目标可以通过下面的命令，来链接这个 <code>IMPORTED</code> 目标。</p>
+<pre><code class="language-cmake"># CMake 会根据导入目标的属性，自动添加正确的链接器标志、库路径和包含路径。
+target_link_libraries(&lt;another_target&gt; PUBLIC|PRIVATE|INTERFACE &lt;target_name&gt;)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../cmake/cmake.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../cmake/how-to-create-installable-cmake-project.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../cmake/cmake.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../cmake/how-to-create-installable-cmake-project.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../js/init.js"></script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../js/mermaid.min.js"></script>
+        <script src="../js/mermaid-init.js"></script>
+        <script src="../js/mode-c_cpp.js"></script>
+        <script src="../js/editor.js"></script>
+        <script src="../js/init.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,1660 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Net Nook</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A collection of notes and resources in learning and building.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Net Nook</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://kymdon13.github.io/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>这本书（或者技术博客）记录了我在开发我自己感兴趣的应用的过程中的一些笔记，一方面也是督促自己把笔记写的更清晰、通俗易懂。</p>
+<p>另外，单纯阅读大量文字很容易犯困，所以我会尽可能用代码或图表来传达。</p>
+<p>如果你碰巧遇到了与我相同的问题，能帮到你再好不过，也非常欢迎你通过邮箱 <a href="mailto:1342347481@qq.com">1342347481@qq.com</a> 联系我。</p>
+<p>这本电子书是使用 <a href="https://github.com/rust-lang/mdBook">mdBook</a> 生成的，mdBook 是一个由 Rust 语言驱动的工具，能够根据 Markdown 文件制作出现代化的在线图书。
+如果你感兴趣，可以去查看 <a href="https://rust-lang.github.io/mdBook">用户指南</a>。</p>
+<p>我的 GitHub 主页：<img src="./images/github-mark.svg" alt="github-mark" width="20" height="20" style=""> <a href="https://github.com/Kymdon13">Kymdon13</a>。</p>
+<p>祝阅读愉快！</p>
+<p><strong>许可协议</strong></p>
+<p>本文采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> 许可协议授权。</p>
+<p>你可以：</p>
+<ul>
+<li>在非商业目的下，自由传播、修改、改编、或基于本作品进行创作，并可采用任何媒介与形式。</li>
+</ul>
+<p>但你必须：</p>
+<ul>
+<li>给出适当署名，注明作品来源。</li>
+</ul>
+<hr />
+<p>This book is about my experience building applications I'm interested in (Web APP, CLI APP, etc.).
+There are problems I ran into and solved and those I didn't, and I like taking notes out of it.</p>
+<p>In the mean while, watching a whole bunch of words is quite frustrating, so I will try to use code or diagram to explain the idea if possible.</p>
+<p>If you happen to encounter the same problem as I did, I'm glad that I can help. You are very welcome to disturb me at <a href="mailto:1342347481@qq.com">1342347481@qq.com</a>.</p>
+<p>This e-book is generated by <a href="https://github.com/rust-lang/mdBook">mdBook</a>, which is powered by Rust.
+The mdBook is a utility to create modern online books from Markdown files (taken from its official GitHub repository). If you are interested in it, go check the <a href="https://rust-lang.github.io/mdBook">User Guide</a>.</p>
+<p>My GitHub Homepage: <img src="./images/github-mark.svg" alt="github-mark" width="20" height="20" style=""> <a href="https://github.com/Kymdon13">Kymdon13</a>.</p>
+<p>Have a good time reading.</p>
+<p><strong>License</strong></p>
+<p>This work is licensed under the <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.</p>
+<p>You are free to:</p>
+<ul>
+<li>Distribute, remix, adapt, and build upon the material in any medium or format for noncommercial purposes only.</li>
+</ul>
+<p>You have to:</p>
+<ul>
+<li>Give credit to the creator.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mdbook-features"><a class="header" href="#mdbook-features">mdBook features</a></h1>
+<h3 id="classlist-of-code-block"><a class="header" href="#classlist-of-code-block">classList of code block</a></h3>
+<p>If you create a code block like:</p>
+<pre><code>```cpp
+int main() {}
+```
+</code></pre>
+<p>then in the HTML mdBook generates, there will be a code element:</p>
+<pre><code class="language-html">&lt;code class="language-cpp ..."&gt;...&lt;/code&gt;
+</code></pre>
+<h1 id="grammar"><a class="header" href="#grammar">Grammar</a></h1>
+<h3 id="link"><a class="header" href="#link">Link</a></h3>
+<p>We can write like:</p>
+<pre><code>[link1](#link)
+</code></pre>
+<p>it will be rendered as: <a href="tips.html#link">link1</a>.</p>
+<p>or we could write like:</p>
+<pre><code>[link2](#editable-code)
+</code></pre>
+<p>rendered as: <a href="tips.html#editable-code">link2</a>.</p>
+<p>As you can see, the H3 header as <code>Editable Code</code> is given the link <code>editable-code</code> after mdBook rendered it to HTML.</p>
+<blockquote>
+<p>Actually, the rules are:</p>
+<ul>
+<li>keep the <code>-</code>;</li>
+<li>convert uppercase letters to lowercase;</li>
+<li>convert single or multi "space" to <code>-</code>;</li>
+<li>delete all <code>&amp;</code> <code>,</code> <code>.</code> <code>?</code> <code>!</code> <code>:</code> <code>;</code> <code>*</code> <code>^</code> <code>%</code> <code>(</code> <code>)</code>.</li>
+</ul>
+<p>Let's say we have a header like:</p>
+<h3 id="complex-header"><a class="header" href="#complex-header">&amp;,.?!:;*^%()Complex Header</a></h3>
+<p>and the actual link is:</p>
+<pre><code>[link3](#complex-header)
+</code></pre>
+<p>rendered as:
+<a href="tips.html#complex-header">link3</a></p>
+</blockquote>
+<h5 id="中文-标题"><a class="header" href="#中文-标题">中文 标题</a></h5>
+<pre><code>[中文链接](#中文-标题)
+</code></pre>
+<p>rendered as: <a href="tips.html#%E4%B8%AD%E6%96%87-%E6%A0%87%E9%A2%98">中文链接</a></p>
+<h1 id="format"><a class="header" href="#format">Format</a></h1>
+<p>The format features of mdBook you can use.</p>
+<h2 id="code"><a class="header" href="#code">Code</a></h2>
+<p>For code format, go check this chapter: <a href="./cpp-playground.html">CPP Playground</a>.</p>
+<h3 id="mermaid"><a class="header" href="#mermaid">Mermaid</a></h3>
+<pre class="mermaid">graph TD;
+    A--&gt;B;
+    A--&gt;C;
+    B--&gt;D;
+    C--&gt;D;
+</pre>
+<h2 id="including-files"><a class="header" href="#including-files">Including Files</a></h2>
+<p>This is <code>src/SUMMARY.md</code> in my mdBook project, and I just use:</p>
+<pre><code>{{#include ./SUMMARY.md}}
+</code></pre>
+<p>in this md file to include it, it will be rendered as:</p>
+<pre><code class="language-md"># Summary
+
+[README](./readme.md)
+
+[Tips](./tips.md)
+
+---
+
+# My MarkDown
+
+- [RabbitMQ 交换机类型](./rabbitmq.md)
+
+- [CMake](./cmake/cmake.md)
+    - [CMake 模块和包](./cmake/cmake-module.md)
+    - [如何创建一个可安装的 CMake 包](./cmake/how-to-create-installable-cmake-project.md)
+
+- [CPP Playground](./cpp-playground.md)
+
+- [Custom Playground](./custom-playground.md)
+
+---
+
+[© CC BY-NC 4.0](./license)
+</code></pre>
+<h2 id="math"><a class="header" href="#math">Math</a></h2>
+<h3 id="inline"><a class="header" href="#inline">Inline</a></h3>
+<p>Inline equations must use <code>\\(</code> and <code>\\)</code>:</p>
+<pre><code>\\( \int x dx = \frac{x^2}{2} + C \\)
+</code></pre>
+<p>and this will be rendered as: \( \int x dx = \frac{x^2}{2} + C \).</p>
+<h3 id="block"><a class="header" href="#block">Block</a></h3>
+<p>Block equations must use <code>\\[</code> and <code>\\]</code>:</p>
+<pre><code>\\[ \mu = \frac{1}{N} \sum_{i=0} x_i \\]
+</code></pre>
+<p>and this will be rendered as:</p>
+<p>\[ \mu = \frac{1}{N} \sum_{i=0} x_i \]</p>
+<div style="break-before: page; page-break-before: always;"></div><p>RabbitMQ 有几种常用的交换机类型：</p>
+<ul>
+<li>fanout 交换机（广播）</li>
+<li>direct 交换机（单播）</li>
+<li>topic 交换机（多播）</li>
+</ul>
+<p>下面我们用几张流程图展示这几种类型。</p>
+<h3 id="fanout-交换机广播"><a class="header" href="#fanout-交换机广播">fanout 交换机（广播）</a></h3>
+<p>fanout 模式的交换机：将消息复制成 n 份（n 为队列数量），然后分发给所有队列。</p>
+<pre class="mermaid">graph TD
+    P((P)) --&gt; fanout{fanout}
+
+    fanout --&gt; Q1
+    fanout --&gt; Q2
+    fanout --&gt; ...
+    fanout --&gt; Qn
+</pre>
+<h3 id="direct-交换机单播"><a class="header" href="#direct-交换机单播">direct 交换机（单播）</a></h3>
+<p>direct 模式的交换机：发布消息时根据 <code>routing_key</code> 转发给对应的队列。</p>
+<pre class="mermaid">graph TD
+    P((P)) --&gt; direct{direct}
+
+    direct -- info --&gt; Q1[Q1]
+    Q1 --&gt; C1((C1))
+
+    direct -- info --&gt; Q2[Q2]
+    direct -- warn --&gt; Q2
+    Q2 --&gt; C2((C2))
+</pre>
+<p>这里如果 <code>P</code> 发送一个 <code>routing_key=info</code> 的消息：</p>
+<ul>
+<li>direct 交换机会把消息复制为 2 份发给 <code>Q1</code>、<code>Q2</code>。</li>
+</ul>
+<p>如果 <code>P</code> 发送一个 <code>routing_key=warn</code> 的消息：</p>
+<ul>
+<li>direct 交换机只会发给 <code>Q2</code>。</li>
+</ul>
+<p>如果 <code>P</code> 发送一个 <code>routing_key=error</code> 的消息：</p>
+<ul>
+<li>direct 交换机没找到匹配的队列，丢弃该消息。</li>
+</ul>
+<blockquote>
+<p>注意一个队列只能绑定一个同名的 <code>routing_key</code>，例如假设 <code>Q1</code> 绑定了两次 <code>info</code>，第二次绑定是无效的。也就是说，复制操作只发生在队列之间，不会对同一个队列复制消息</p>
+</blockquote>
+<h3 id="topic-交换机多播"><a class="header" href="#topic-交换机多播">topic 交换机（多播）</a></h3>
+<p>topic 模式的交换机：在 direct 模式的 <code>routing_key</code> 中加入了通配符，会复制并转发给匹配的所有队列。</p>
+<p>其中，<code>*</code> 匹配 1 个单词，<code>#</code> 匹配 0 个或多个单词，<code>.</code> 用于分隔不同单词。</p>
+<pre class="mermaid">graph TD
+    P((P)) --&gt; topic{topic}
+
+    topic -- lazy.# --&gt; Q1[Q1]
+    Q1 --&gt; C1((C1))
+
+    topic -- \*.big.\* --&gt; Q2[Q2]
+    topic -- \*.\*.dog --&gt; Q2
+    Q2 --&gt; C2((C2))
+</pre>
+<p>如果 <code>P</code> 发送 <code>lazy</code> 或 <code>lazy.</code>：</p>
+<ul>
+<li>只有 <code>Q1</code> 会收到消息。</li>
+</ul>
+<p>如果 <code>P</code> 发送 <code>lazy.big.cat</code>：</p>
+<ul>
+<li><code>Q1</code> 和 <code>Q2</code> 都会收到消息。</li>
+</ul>
+<p>如果 <code>P</code> 发送 <code>normal.big.dog</code>：</p>
+<ul>
+<li>只有 <code>Q2</code> 会收到，而且只会收到一次。</li>
+</ul>
+<h3 id="混合模式"><a class="header" href="#混合模式">混合模式</a></h3>
+<p>你可以混合上述 3 种模式形成自定义的消息转发网络。</p>
+<pre class="mermaid">graph TD
+    P((P)) --&gt; fanout{fanout}
+    P((P)) --&gt; direct{direct}
+
+    P((P)) --&gt; topic{topic}
+
+    fanout --&gt; Q1
+    fanout --&gt; Q2
+
+    direct -- orange --&gt; Q1[Q1]
+    Q1 --&gt; C1((C1))
+
+    direct -- black --&gt; Q2[Q2]
+    direct -- green --&gt; Q2
+    Q2 --&gt; C2((C2))
+
+    topic -- lazy.# --&gt; Q2
+    topic -- \*.big.\* --&gt; Q3[Q3]
+    topic -- \*.\*.dog --&gt; Q3
+    Q3 --&gt; C3((C3))
+</pre>
+<h3 id="负载均衡"><a class="header" href="#负载均衡">负载均衡</a></h3>
+<p>负载均衡一般发生在消费者端：</p>
+<pre class="mermaid">graph TD
+    P((P)) --&gt; direct{direct}
+
+    direct -- info --&gt; Q1[Q1]
+    Q1 -- busy --&gt; C1((C1))
+    Q1 -- busy --&gt; C2((C1))
+    Q1 -- idle --&gt; C3((C3))
+
+    direct -- info --&gt; Q2[Q2]
+    direct -- warn --&gt; Q2
+    Q2 -- idle --&gt; C4((C4))
+</pre>
+<p>上图中，队列 <code>Q1</code> 有 3 个消费者分摊任务负载。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>CMake 使用手册（部分）。</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="include"><a class="header" href="#include">include()</a></h2>
+<p>在 cmake 中引入模块就相当于在 C++ 的引入头文件，通常用于引入一些<strong>工具模块</strong>。</p>
+<p>例如，我们在工作目录下创建一个 <code>cmake</code> 目录，里面专门放一些辅助我们编写 <code>CMakeLists.txt</code> 的工具宏：</p>
+<pre><code>.
+├── build/
+├── cmake/
+├── CMakeLists.txt
+└── src/
+</code></pre>
+<p>然后我们创建一个 <code>utils.cmake</code>，里面定义了一个宏：</p>
+<pre><code class="language-cmake"># utils.cmake
+function(my_custom_function)
+    message(STATUS "This is a custom function!")
+endfunction()
+</code></pre>
+<p>用 <code>include()</code> 引入这个模块后，我们就可以在 <code>CMakeLists.txt</code> 中使用这个宏：</p>
+<pre><code class="language-cmake">include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake)
+my_custom_function() # 输出：This is a custom function!
+</code></pre>
+<h3 id="作用域"><a class="header" href="#作用域">作用域</a></h3>
+<p>上面提到，<code>include()</code> 引入模块就像 C++ 引入头文件，cmake 在运行时遇到 <code>include()</code> 就直接加载对应文件，相当于在调用处直接插入代码，所以模块不会有自己的作用域。</p>
+<p>例如，我们定义一个 <code>cmake/set.cmake</code>：</p>
+<pre><code class="language-cmake">set(VAR 123)
+</code></pre>
+<p>然后我们在主 <code>CMakeLists.txt</code> 引入这个包：</p>
+<pre><code class="language-cmake">include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/set.cmake)
+message(${VAR}) # 输出：123，这个变量是set.cmake新建的
+</code></pre>
+<h3 id="include-的搜索路径"><a class="header" href="#include-的搜索路径">include() 的搜索路径</a></h3>
+<p><code>include()</code> 的搜索顺序是：</p>
+<ul>
+<li>首先搜索 <code>CMAKE_MODULE_PATH</code>；</li>
+<li>再搜索 cmake 的默认模块路径，一般是 cmake 安装目录下的 <code>Modules</code> 目录（我的是 <code>/usr/share/cmake-3.16/Modules</code>）。</li>
+</ul>
+<h5 id="自定义搜索路径"><a class="header" href="#自定义搜索路径">自定义搜索路径</a></h5>
+<p>如果你想设置 <code>include()</code> 的搜索路径，可以这样写：</p>
+<pre><code class="language-cmake">set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/path/to/modules1")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "/path/to/modules2")
+</code></pre>
+<p>每个路径会自动以 <code>;</code> 分隔：<code>CMAKE_MODULE_PATH = /path/to/modules1;/path/to/modules2</code>。</p>
+<blockquote>
+<p>注意：如果你用上面的方法设置了 <code>CMAKE_MODULE_PATH</code>，那么引入时不要加后缀 <code>.cmake</code> ：<code>include(module_name)</code>，不然会找不到。</p>
+</blockquote>
+<h2 id="find_package"><a class="header" href="#find_package">find_package()</a></h2>
+<p><code>find_package()</code> 有两种主要工作模式：Module Mode 和 Config Mode。</p>
+<h3 id="module-mode模块模式"><a class="header" href="#module-mode模块模式">Module Mode（模块模式）</a></h3>
+<p>该模式下 <code>find_package()</code> 会匹配名为 <code>Find&lt;PackageName&gt;.cmake</code> 的文件。</p>
+<h5 id="搜索路径"><a class="header" href="#搜索路径">搜索路径</a></h5>
+<p>搜索路径和 <code>include()</code> 一样：</p>
+<ul>
+<li>首先搜索 <code>CMAKE_MODULE_PATH</code>；</li>
+<li>再搜索 cmake 的默认模块路径，一般是 cmake 安装目录下的 <code>Modules</code> 目录（我的是 <code>/usr/share/cmake-3.16/Modules</code>）。</li>
+</ul>
+<blockquote>
+<p>但是注意，这里要匹配的是 <code>Find&lt;PackageName&gt;.cmake</code>，例如：</p>
+<pre><code class="language-cmake">find_package(set REQUIRED) # 只能匹配 "Findset.cmake"
+</code></pre>
+</blockquote>
+<h5 id="主要用途"><a class="header" href="#主要用途">主要用途</a></h5>
+<p><code>Find&lt;PackageName&gt;.cmake</code> 文件通常是由 CMake 官方或者社区编写的脚本，用来<strong>猜测</strong>和<strong>探测</strong>系统上可能安装了哪些版本的库、库文件在哪里、头文件在哪里等等</p>
+<blockquote>
+<p>这种模式是为那些没有提供自己 CMake 配置文件的库准备的，所以要靠 cmake 自己去猜它们在哪里。</p>
+</blockquote>
+<h3 id="config-mode配置模式"><a class="header" href="#config-mode配置模式">Config Mode（配置模式）</a></h3>
+<p>该模式下会匹配 <code>&lt;PackageName&gt;Config.cmake</code> 和 <code>&lt;packagename&gt;-config.cmake</code>。</p>
+<p>例如我们找一个不存在的包：</p>
+<pre><code class="language-cmake">find_package(set CONFIG REQUIRED)
+# 报错：
+# Could not find a package configuration file provided by "set" with any of
+# the following names:
+# setConfig.cmake
+# set-config.cmake
+</code></pre>
+<h5 id="搜索路径-1"><a class="header" href="#搜索路径-1">搜索路径</a></h5>
+<p>一般的搜索路径有：</p>
+<ul>
+<li><code>/usr/lib/cmake/&lt;PackageName&gt;</code>；</li>
+<li><code>/usr/share/cmake/&lt;PackageName&gt;</code>；</li>
+<li><code>/usr/local/lib/cmake/&lt;PackageName&gt;</code>；</li>
+<li><code>/usr/local/share/cmake/&lt;PackageName&gt;</code>。</li>
+</ul>
+<p>你也可以通过设置 <code>CMAKE_PREFIX_PATH</code> 变量告诉 CMake 应该去哪找：</p>
+<pre><code>cmake -DCMAKE_INSTALL_PREFIX=/path/to/&lt;PackageName&gt;Config.cmake &lt;path/to/CMakeLists.txt&gt;
+</code></pre>
+<h5 id="主要用途-1"><a class="header" href="#主要用途-1">主要用途</a></h5>
+<p><code>&lt;PackageName&gt;Config.cmake</code> 通常是<strong>库项目自身在安装时生成的</strong>，它们会告诉 cmake 库在哪里、头文件在哪里、依赖哪些其他库、提供了哪些 CMake 目标 (targets) 等等。</p>
+<h3 id="find_dependency"><a class="header" href="#find_dependency">find_dependency()</a></h3>
+<p>和 <code>find_package()</code> 功能上相似，但是：</p>
+<ul>
+<li><code>find_dependency()</code> 是一个宏，好像主要用于主项目；</li>
+<li><code>find_package()</code> 是内置命令，好像主要用在模块的配置文件中。</li>
+</ul>
+<h3 id="为什么推荐使用-config-模式如果库支持的话"><a class="header" href="#为什么推荐使用-config-模式如果库支持的话">为什么推荐使用 CONFIG 模式（如果库支持的话）？</a></h3>
+<ul>
+<li><strong>更准确和健壮：</strong> Config 文件是由库项目自身提供的，相比于 Find 模块的“猜测”，Config 模式更不容易出错。</li>
+<li><strong>提供现代 CMake 目标：</strong> 使用 Config 模式找到的包通常会定义并导出 CMake 目标（比如 <code>protobuf::libprotobuf</code>, <code>grpc::grpc++</code>）。在 <code>target_link_libraries()</code> 中使用这些目标是链接库的现代、推荐方式。CMake 会自动处理链接所需的头文件路径、库文件路径以及其他依赖关系。</li>
+</ul>
+<h2 id="interface-和-imported-标志"><a class="header" href="#interface-和-imported-标志">INTERFACE 和 IMPORTED 标志</a></h2>
+<p>在 CMake 中，<code>add_library()</code> 和 <code>add_executable()</code> 命令用于定义构建目标。除了 <code>STATIC</code> (静态库)、<code>SHARED</code> (动态库)、<code>MODULE</code> (模块库) 和可执行文件这些类型外，还有一些特殊的标志或概念来描述目标的性质和使用方式。<code>IMPORTED</code> 和 <code>INTERFACE</code> 就是其中非常重要的两个。</p>
+<h3 id="interface接口"><a class="header" href="#interface接口">INTERFACE（接口）</a></h3>
+<p><code>INTERFACE</code> 可以用来描述两种情况：</p>
+<h4 id="interface-库目标interface-library-target"><a class="header" href="#interface-库目标interface-library-target">INTERFACE 库目标（INTERFACE Library Target）</a></h4>
+<h5 id="库目标定义"><a class="header" href="#库目标定义">库目标定义</a></h5>
+<p>使用 <code>add_library(&lt;target_name&gt; INTERFACE)</code> 命令创建的库目标。</p>
+<h5 id="特点"><a class="header" href="#特点">特点</a></h5>
+<ul>
+<li><strong>不生成任何构建输出文件</strong>，比如 <code>.a</code>, <code>.so</code>, <code>.dll</code>，只存在于构建系统中。</li>
+</ul>
+<h5 id="主要用途-2"><a class="header" href="#主要用途-2">主要用途</a></h5>
+<p>用来分组和封装一组供其他目标使用的使用要求（Usage Requirements），其中使用要求包含：</p>
+<ul>
+<li>要包含的目录；</li>
+<li>要链接的其他库；</li>
+<li>要添加的编译定义（例如添加 <code>#define</code>）和编译选项。</li>
+</ul>
+<p><strong>如何使用：</strong></p>
+<pre><code class="language-cmake">target_include_directories(&lt;target_name&gt; INTERFACE ...)
+target_link_libraries(&lt;target_name&gt; INTERFACE ...)
+target_compile_definitions(&lt;target_name&gt; INTERFACE ...)
+target_compile_options(&lt;target_name&gt; INTERFACE ...)
+</code></pre>
+<p>上面的命令可以为这个 <code>INTERFACE</code> 目标设置使用要求。</p>
+<p><strong>如何依赖：</strong></p>
+<p>其他目标（无论是静态库、动态库还是可执行文件）可以通过下面的命令来“链接”到这个 <code>INTERFACE</code> 目标。</p>
+<pre><code class="language-cmake">target_link_libraries(&lt;another_target&gt; PUBLIC|PRIVATE|INTERFACE &lt;target_name&gt;)
+</code></pre>
+<p>这里的“链接”不是传统的二进制链接，而是表示 <code>&lt;another_target&gt;</code> 将继承 <code>&lt;target_name&gt;</code> 定义的所有 <code>INTERFACE</code> 使用要求。</p>
+<h5 id="应用示例"><a class="header" href="#应用示例">应用示例</a></h5>
+<p><strong>纯头文件库 (Header-Only Libraries)：</strong></p>
+<p>比如很多现代 C++ 模板库。它们只有头文件，不需要编译成 <code>.o</code> 文件或库文件。你可以</p>
+<pre><code class="language-cmake"># 定义目标
+add_library(MyHeaderOnlyLib INTERFACE)
+
+# 指定头文件路径
+target_include_directories(MyHeaderOnlyLib INTERFACE ${MyHeaderOnlyLib_SOURCE_DIR}/include)
+
+### 其他库只要写下面这个命令，它们的包含目录就会自动加上 MyHeaderOnlyLib 的头文件路径
+target_link_libraries(&lt;another_target&gt; PUBLIC MyHeaderOnlyLib)
+</code></pre>
+<p><strong>打包一组编译器标志或定义：</strong></p>
+<p>创建一个 <code>INTERFACE</code> 目标，为其设置一组特定的编译定义或选项，然后让需要这些选项的其他目标链接到它。</p>
+<p><strong>分组外部依赖：</strong></p>
+<p>创建一个 <code>INTERFACE</code> 目标来代表一个概念上的功能模块，然后用 <code>target_link_libraries(&lt;target_name&gt; INTERFACE &lt;dependency1&gt; &lt;dependency2&gt; ...)</code> 将其链接到多个实际的库目标。其他目标只需链接这个 <code>INTERFACE</code> 目标，就会自动链接到其所有依赖的库。</p>
+<h4 id="interface-属性interface-properties"><a class="header" href="#interface-属性interface-properties">INTERFACE 属性（INTERFACE Properties）</a></h4>
+<p>除了用于定义 <code>INTERFACE</code> 库目标外，<code>INTERFACE</code> 关键字还用在：</p>
+<ul>
+<li><code>target_include_directories</code>；</li>
+<li><code>target_compile_definitions</code>；</li>
+<li><code>target_link_libraries</code>。</li>
+</ul>
+<p>例如：</p>
+<pre><code class="language-cmake">target_include_directories(MyLib PUBLIC include PRIVATE src INTERFACE include/public_api)
+</code></pre>
+<p>表示：</p>
+<ul>
+<li><code>PUBLIC include</code>：<code>MyLib</code> 自身需要编译 <code>include</code> 目录下的文件，并且任何链接到 <code>MyLib</code> 的目标也需要这个包含路径。</li>
+<li><code>PRIVATE src</code>：<code>MyLib</code> 自身需要编译 <code>src</code> 目录下的文件，但这个路径不会传递给链接它的目标。</li>
+<li><code>INTERFACE include/public_api</code>：<code>MyLib</code> 自身不需要这个包含路径，但任何链接到 <code>MyLib</code> 的目标都需要这个包含路径。</li>
+</ul>
+<h3 id="imported导入"><a class="header" href="#imported导入">IMPORTED（导入）</a></h3>
+<p><code>IMPORTED</code> 标志用于描述那些<strong>不是由当前 CMake 项目构建</strong>，而是<strong>预先存在于系统上</strong>或由<strong>其他构建过程生成的</strong>目标。</p>
+<h5 id="定义"><a class="header" href="#定义">定义</a></h5>
+<p>通常用下面的命令来定义一个导入目标。这里的 <code>&lt;type&gt;</code> 可以是 <code>STATIC</code>, <code>SHARED</code>, <code>MODULE</code>。</p>
+<pre><code class="language-cmake">add_library(&lt;target_name&gt; &lt;type&gt; IMPORTED)
+add_executable(&lt;target_name&gt; IMPORTED)
+</code></pre>
+<h5 id="主要用途-3"><a class="header" href="#主要用途-3">主要用途</a></h5>
+<p>在当前 CMake 项目中创建一个对外部已存在二进制文件（库或可执行文件）的<strong>引用</strong>或<strong>代理</strong>。这样当前项目就可以使用 CMake 的目标管理机制来链接和依赖这些外部二进制文件，就像它们是在当前项目中构建的一样。</p>
+<h5 id="应用示例-1"><a class="header" href="#应用示例-1">应用示例</a></h5>
+<p>导入外部库时，通过 <code>find_package(&lt;PackageName&gt; CONFIG ...)</code> 命令加载的 <code>&lt;PackageName&gt;Config.cmake</code> 文件，会自动定义一个或多个 <code>IMPORTED</code> 目标。</p>
+<p>这些由 <code>find_package</code> 创建的导入目标通常带有双冒号 <code>::</code> (例如 <code>Protobuf::libprotobuf</code>, <code>grpc::grpc++</code>)，表示这是一个<strong>别名或导入目标</strong>。</p>
+<p>在定义了导入目标后，需要设置它的位置以及使用要求。例如：</p>
+<pre><code class="language-cmake"># 定义目标
+add_library(&lt;target_name&gt; STATIC IMPORTED)
+
+# 设置导入库的实际文件路径
+SET_TARGET_PROPERTY(&lt;target_name&gt; IMPORTED_LOCATION /path/to/the/library/file)
+
+# 设置链接该导入目标时需要添加的包含目录
+SET_TARGET_PROPERTY(&lt;target_name&gt; INTERFACE_INCLUDE_DIRECTORIES /path/to/its/include/dir)
+
+# 设置该导入目标本身依赖的其他库
+SET_TARGET_PROPERTY(&lt;target_name&gt; IMPORTED_LINK_INTERFACE_LIBRARIES "dependency1;dependency2")
+</code></pre>
+<p><strong>如何使用：</strong> 其他目标可以通过下面的命令，来链接这个 <code>IMPORTED</code> 目标。</p>
+<pre><code class="language-cmake"># CMake 会根据导入目标的属性，自动添加正确的链接器标志、库路径和包含路径。
+target_link_libraries(&lt;another_target&gt; PUBLIC|PRIVATE|INTERFACE &lt;target_name&gt;)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><p>本文使用的 CMake 版本为：<code>3.16.3</code>；C/C++ 编译器为 <code>clang-17</code>。</p>
+<hr />
+<p>在我们需要使用第三方包时，我们需要：</p>
+<ul>
+<li>在安装时，使用 <a href="cmake/how-to-create-installable-cmake-project.html#cmake_install_prefix-%E6%A0%87%E5%BF%97">CMAKE_INSTALL_PREFIX 标志</a> 来指定安装根目录；</li>
+<li>安装完成后，可以用 <a href="cmake/how-to-create-installable-cmake-project.html#cmake_prefix_path-%E6%A0%87%E5%BF%97">CMAKE_PREFIX_PATH 标志</a> 指定包的搜索路径。</li>
+</ul>
+<p>当我们需要编写 CMake 可安装库时，我们需要：</p>
+<ul>
+<li>用 <a href="cmake/how-to-create-installable-cmake-project.html#install-%E5%91%BD%E4%BB%A4">install() 命令</a> 配置安装流程，以及生成 <code>*Config.cmake</code> 文件供消费者（引用包的人）搜索包文件。</li>
+</ul>
+<p>整体流程大概是：</p>
+<pre class="mermaid">graph TD
+	cmake -- 生成 --&gt; conf[配置文件] -- 读入配置 --&gt; make
+	make -- 生成 --&gt; exe[可执行文件、库文件]
+	conf -- 读入配置 --&gt; install[cmake --install]
+	exe -- 读取 --&gt; install
+	install -- 安装 --&gt; targetdir[指定目录]
+	targetdir -- 读取目录中的*Config.cmake --&gt; consumer[消费者]
+	consumer -- 通过*Config.cmake找到 --&gt; exe
+</pre>
+<h2 id="cmake_install_prefix-标志"><a class="header" href="#cmake_install_prefix-标志">CMAKE_INSTALL_PREFIX 标志</a></h2>
+<p><code>CMAKE_INSTALL_PREFIX</code> 是一个 CMake 变量，它定义了项目在执行安装（install）操作时，文件将被复制到的根目录。</p>
+<h3 id="什么时候设置和使用"><a class="header" href="#什么时候设置和使用">什么时候设置和使用？</a></h3>
+<h5 id="在命令行中设置"><a class="header" href="#在命令行中设置">在命令行中设置</a></h5>
+<p>通常在 CMake <strong>配置阶段</strong>（运行 <code>cmake ...</code> 命令时）通过命令行参数 <code>-DCMAKE_INSTALL_PREFIX=&lt;路径&gt;</code> 来设置。消费者可以指定他们希望软件安装到哪个目录下。 例如：</p>
+<pre><code class="language-shell">cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject &lt;path/to/CMakeLists.txt&gt;
+</code></pre>
+<p>如果在配置时没有显式指定，CMake 会有一个默认值（通常是 <code>/usr/local</code> 或 <code>/usr</code>，取决于系统和 CMake 版本）。</p>
+<h5 id="cmake-自动使用"><a class="header" href="#cmake-自动使用">CMake 自动使用</a></h5>
+<p>在 CMakeLists.txt 中，用 <code>install()</code> 命令来定义哪些文件和目标需要安装，以及它们相对于 <code>CMAKE_INSTALL_PREFIX</code> 应该放在哪个子目录下。</p>
+<p>在执行 <code>make install</code> 或 <code>cmake --install</code> 命令时，CMake 会读取这些 <code>install()</code> 定义，并将相应的文件复制到 <code>CMAKE_INSTALL_PREFIX</code> 指定的路径下的正确位置。</p>
+<h2 id="cmake_prefix_path-标志"><a class="header" href="#cmake_prefix_path-标志">CMAKE_PREFIX_PATH 标志</a></h2>
+<p>消费者在自己的 <code>CMakeLists.txt</code> 中加入：</p>
+<pre><code class="language-shell">list(APPEND CMAKE_PREFIX_PATH absolute/path/to/&lt;Package&gt;Config.cmake)
+</code></pre>
+<p>然后调用 <code>find_package(&lt;Package&gt; REQUIRED)</code> 就会在上述路径中搜索 <code>&lt;Package&gt;Config.cmake</code> 文件，该文件会收集包的必要信息。</p>
+<h2 id="install-命令"><a class="header" href="#install-命令">install() 命令</a></h2>
+<p><strong><code>install()</code> 命令：</strong>
+这是在 <code>CMakeLists.txt</code> 中定义安装规则的核心命令。它告诉 CMake 需要安装哪些文件、哪些目标，以及它们相对于 <code>CMAKE_INSTALL_PREFIX</code> 应该放在哪个目录下。</p>
+<p>常用的 <code>install()</code> 用法包括：</p>
+<pre><code class="language-cmake"># 安装 myexecutable 到 ${CMAKE_INSTALL_PREFIX}/bin
+install(TARGETS myexecutable DESTINATION bin)
+# 安装 mylibrary (动态或静态) 到 ${CMAKE_INSTALL_PREFIX}/lib
+install(TARGETS mylibrary DESTINATION lib)
+
+# 安装 myheader.h 到 ${CMAKE_INSTALL_PREFIX}/include
+install(FILES include/myheader.h DESTINATION include)
+
+# 安装 conf 目录下的所有内容到 ${CMAKE_INSTALL_PREFIX}/share/myproject/conf
+install(DIRECTORY conf/ DESTINATION share/myproject/conf)
+</code></pre>
+<h3 id="导出项目安装信息"><a class="header" href="#导出项目安装信息">导出项目安装信息</a></h3>
+<p>我们还可以导出项目安装信息：</p>
+<pre><code class="language-cmake">install(EXPORT &lt;export-name&gt; DESTINATION &lt;相对路径&gt; ...)
+</code></pre>
+<p>这个用于导出 CMake 目标信息，生成 <code>.cmake</code> 文件（如 <code>*Config.cmake</code>），使得其他 CMake 项目可以通过 <code>find_package()</code> 来找到并使用该项目。</p>
+<p>这些导出的文件通常安装在：</p>
+<pre><code>${CMAKE_INSTALL_PREFIX}/lib/cmake/&lt;ProjectName&gt;
+${CMAKE_INSTALL_PREFIX}/share/cmake/&lt;ProjectName&gt;
+</code></pre>
+<h3 id="安装命令"><a class="header" href="#安装命令">安装命令</a></h3>
+<p>在编译完成后，执行以下命令，会触发 CMake 的安装过程，根据 <code>CMakeLists.txt</code> 中定义的所有 <code>install()</code> 规则，将文件从构建目录复制或移动到 <code>CMAKE_INSTALL_PREFIX</code> 指定的安装目录下：</p>
+<ul>
+<li><code>make install</code>：如果用的是 Makefile 生成器。</li>
+<li><code>cmake --install &lt;构建目录&gt;</code>：这是更通用的方法，适用于所有 CMake 生成器。</li>
+</ul>
+<h2 id="应用示例-2"><a class="header" href="#应用示例-2">应用示例</a></h2>
+<p>现在我们创建一个目录结构如下：</p>
+<pre><code>Apple/
+├── CMakeLists.txt
+├── install
+├── src
+│   ├── Apple.cc
+│   ├── Apple.h
+│   └── CMakeLists.txt
+└── test
+    ├── CMakeLists.txt
+    └── main.cc
+</code></pre>
+<p>在这个项目中，我们定义了一个 <code>Apple</code> 类，这个类依赖于 <code>ZLIB</code>。</p>
+<h3 id="c-文件"><a class="header" href="#c-文件">C++ 文件</a></h3>
+<pre><code class="language-cpp">// src/Apple.h
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+class Apple {
+public:
+    Apple(std::string data);
+    ~Apple();
+    std::string data();
+    std::vector&lt;unsigned char&gt; zippedString();
+
+private:
+    std::string data_;
+};
+</code></pre>
+<pre><code class="language-cpp">// src/Apple.cc
+#include "Apple.h"
+
+#include &lt;zlib.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+Apple::Apple(std::string data) : data_(data) {
+    std::cout &lt;&lt; "Apple constructor called" &lt;&lt; std::endl;
+}
+
+Apple::~Apple() {
+    std::cout &lt;&lt; "Apple destructor called" &lt;&lt; std::endl;
+}
+
+std::string Apple::data() {
+    return data_;
+}
+
+std::vector&lt;unsigned char&gt; Apple::zippedString() {
+    uLong srcLen = data_.size();
+    uLong destLen = compressBound(srcLen);
+    std::vector&lt;unsigned char&gt; out;
+    out.resize(destLen);
+
+    // Compress the string
+    int res = compress(out.data(), &amp;destLen, reinterpret_cast&lt;const Bytef *&gt;(data_.data()), srcLen);
+    if (res != Z_OK)
+    {
+        std::cerr &lt;&lt; "compress() failed with code " &lt;&lt; res &lt;&lt; std::endl;
+    }
+
+    out.resize(destLen); // trim unused space
+    return out;
+}
+</code></pre>
+<pre><code class="language-cpp">// test/main.cc
+#include "Apple.h"
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main() {
+    Apple apple("Hello, World!");
+    std::cout &lt;&lt; "Apple data: " &lt;&lt; apple.data() &lt;&lt; std::endl;
+
+    for (auto byte : apple.zippedString()) {
+        std::cout &lt;&lt; byte;
+    }
+    std::cout &lt;&lt; std::endl;
+}
+</code></pre>
+<h3 id="cmakeliststxt"><a class="header" href="#cmakeliststxt">CMakeLists.txt</a></h3>
+<p>然后是主目录、<code>test</code> 目录、<code>src</code> 目录下的 <code>CMakeLists.txt</code>：</p>
+<pre><code class="language-cmake"># ./CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(Apple VERSION 0.1.0)
+
+set(CMAKE_C_COMPILER clang) # set C compiler
+set(CMAKE_CXX_COMPILER clang++) # set C++ compiler
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # set runtime output dir
+
+add_compile_options(-stdlib=libc++) # set compile options
+add_link_options(-stdlib=libc++ -lc++ -lc++abi -fuse-ld=lld) # set link options
+
+add_subdirectory(test)
+add_subdirectory(src)
+</code></pre>
+<pre><code class="language-cmake"># test/CMakeLists.txt
+add_executable(main main.cc)
+target_link_libraries(main PRIVATE Apple)
+</code></pre>
+<pre><code class="language-cmake"># src/CMakeLists.txt
+
+# 定义一个库目标
+file(GLOB LIB_SRC *.cc)
+add_library(Apple SHARED ${LIB_SRC})
+set(Apple_INSTALL_CMAKEDIR cmake/mylib)
+
+# 定义库的公共包含目录（接口属性 INSTALL_INTERFACE 会被导出）
+target_include_directories(Apple
+    PUBLIC
+        $&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include&gt;
+        $&lt;INSTALL_INTERFACE:include&gt;
+    PRIVATE
+        src
+)
+
+# 定义库的接口链接依赖（例如依赖第三方库）
+find_package(ZLIB REQUIRED)
+target_link_libraries(Apple PUBLIC ZLIB::ZLIB)
+
+# --- 安装实际的目标文件 ---
+install(DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE
+)
+
+# 安装库文件到 ${CMAKE_INSTALL_PREFIX}/lib
+set(TARGETS_EXPORT_NAME AppleTargets)
+install(TARGETS Apple
+    DESTINATION lib
+    EXPORT ${TARGETS_EXPORT_NAME}
+)
+
+# --- 生成并安装导出文件 ---
+install(EXPORT ${TARGETS_EXPORT_NAME}
+    DESTINATION ${Apple_INSTALL_CMAKEDIR}
+    NAMESPACE mylib::
+)
+
+# 生成并安装 Package Configuration 文件
+include(CMakePackageConfigHelpers)
+# 生成 AppleConfig.cmake 到构建目录
+configure_package_config_file(
+    ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    INSTALL_DESTINATION ${Apple_INSTALL_CMAKEDIR}
+)
+# 生成 *ConfigVersion.cmake 到构建目录
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
+# 将构建目录中的 *Config.cmake 等文件安装到指定路径
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    DESTINATION ${Apple_INSTALL_CMAKEDIR}
+)
+</code></pre>
+<h3 id="cmake-模板文件"><a class="header" href="#cmake-模板文件">CMake 模板文件</a></h3>
+<p>此外，我们还需要为 <code>AppleConfig.cmake</code> 写一个模板文件 <code>AppleConfig.cmake.in</code>：</p>
+<pre><code class="language-shell">@PACKAGE_INIT@
+
+# 查找依赖
+include(CMakeFindDependencyMacro) # find_dependency() 宏需要这个模块
+find_dependency(ZLIB REQUIRED)
+
+# 包含版本文件
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@ConfigVersion.cmake")
+
+# 包含由 install(EXPORT ...) 生成的目标文件
+include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")
+
+# 标记 Package 已找到
+set(@PROJECT_NAME@_FOUND TRUE)
+</code></pre>
+<p>接下来就可以进行构建了。</p>
+<blockquote>
+<p>有几点注意事项：</p>
+<ul>
+<li>模板文件中的占位符 <code>@TARGETS_EXPORT_NAME@</code> 是我们自定义的，在 <code>src/CMakeLists.txt</code> 中创建；</li>
+<li>对于库的每一个依赖（本库只用了 ZLIB 一个依赖）需要在模板文件中用 <code>find_dependency()</code> 收集包的信息。</li>
+</ul>
+<p>另外，<code>AppleConfig.cmake</code> 其实就是 <code>configure_package_config_file()</code> 将 <code>AppleConfig.cmake.in</code> 中的 <code>@@</code> 占位符全部展开后生成的。</p>
+</blockquote>
+<h3 id="构建"><a class="header" href="#构建">构建</a></h3>
+<p>在 <code>Apple</code> 目录下执行（这里路径替换为你的 <code>install</code> 目录绝对路径）：</p>
+<pre><code class="language-shell">rm -rf build/
+mkdir build &amp;&amp; cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
+</code></pre>
+<h3 id="安装"><a class="header" href="#安装">安装</a></h3>
+<p>在 <code>Apple/build</code> 目录下执行：</p>
+<pre><code class="language-shell">cmake --install .
+</code></pre>
+<p>安装完成后，我们应该能看到：</p>
+<pre><code>Apple/install/
+├── cmake
+│   └── mylib
+│       ├── AppleConfig.cmake
+│       ├── AppleConfigVersion.cmake
+│       ├── AppleTargets.cmake
+│       └── AppleTargets-noconfig.cmake
+├── include
+│   └── Apple.h
+└── lib
+    └── libApple.so
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>Apple.h</code> 暴露类声明给消费者，用于编译；</li>
+<li><code>libApple.so</code> 为类的实际实现，用于链接；</li>
+<li><code>cmake</code> 目录下是用于搜索包的 CMake 脚本。</li>
+</ul>
+<h3 id="消费者怎么使用-apple-库"><a class="header" href="#消费者怎么使用-apple-库">消费者怎么使用 Apple 库</a></h3>
+<p>我们创建一个 <code>Peach</code> 目录，并写入以下文件：</p>
+<pre><code class="language-shell">Peach/
+├── CMakeLists.txt
+└── test
+    ├── CMakeLists.txt
+    └── main.cc
+</code></pre>
+<p>其中 <code>main.cc</code> 和 Apple 中的 <code>main.cc</code> 完全一样。</p>
+<p>主目录、<code>test</code> 目录下的 <code>CMakeLists.txt</code>：</p>
+<pre><code class="language-shell"># ./CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(Peach VERSION 0.1.0)
+
+set(CMAKE_C_COMPILER clang) # set C compiler
+set(CMAKE_CXX_COMPILER clang++) # set C++ compiler
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # set runtime output dir
+
+add_compile_options(-stdlib=libc++) # set compile options
+add_link_options(-stdlib=libc++ -lc++ -lc++abi -fuse-ld=lld) # set link options
+
+list(APPEND CMAKE_PREFIX_PATH "~/Apple/install/cmake/mylib")
+find_package(Apple REQUIRED)
+
+add_subdirectory(test)
+</code></pre>
+<pre><code class="language-shell"># test/CMakeLists.txt
+add_executable(main main.cc)
+target_link_libraries(main PRIVATE mylib::Apple)
+</code></pre>
+<p>OK，现在我们创建并进入 <code>Peach/build</code> 目录然后执行：</p>
+<pre><code class="language-shell">cmake ..
+make # 成功输出可执行文件 main
+</code></pre>
+<h3 id="总结"><a class="header" href="#总结">总结</a></h3>
+<p>至此，我们已经实现了 Apple 的安装：</p>
+<ul>
+<li>创建一个名为 Apple 的库（<code>add_library()</code>）；</li>
+<li>利用 <code>install(...)</code> 将头文件目录、库文件安装（其实就是复制）到自定义目录下（<code>Apple/install</code>）；</li>
+<li>通过 <code>target_include_directories($&lt;INSTALL_INTERFACE:include&gt;)</code> 导出头文件目录的相对路径（相对于 <code>CMAKE_INSTALL_PREFIX</code>）到 <code>*Targets.cmake</code>；</li>
+<li>利用 <code>install(EXPORT ...)</code> 导出 <code>*Targets.cmake</code> 到 CMake 的安装路径，并设置命名空间为 <code>mylib::</code>；</li>
+<li>利用 CMake 宏生成 <code>*Config.cmake</code>、<code>*ConfigVersion.cmake</code> 等收集包信息并验证包可用性的 CMake 脚本；</li>
+</ul>
+<p>以及消费者的使用：</p>
+<ul>
+<li>安装完成后，消费者通过 <code>find_package()</code> 引入 Apple 库；</li>
+<li>并通过 <code>target_link_libraries()</code> 将 <code>mylib::Apple</code> 链接到可执行文件。</li>
+</ul>
+<hr />
+<p>你可以动手尝试一下（这个仓库里有更详细的 CMake 注释）：<a href="https://github.com/Kymdon13/How-To-Create-Installable-CMake-Project">如何创建一个可安装 CMake 包</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exception"><a class="header" href="#exception">Exception</a></h1>
+<p>There are some exceptions you might run into:</p>
+<h3 id="timeout"><a class="header" href="#timeout">Timeout</a></h3>
+<p>The time limit is set to 2 seconds of each process.</p>
+<p>So this is ok:</p>
+<pre><code class="language-cpp  run">#include &lt;unistd.h&gt;
+int main() {
+    sleep(1);
+    return 0;
+}
+</code></pre>
+<p>while this is not:</p>
+<pre><code class="language-cpp  run">#include &lt;unistd.h&gt;
+int main() {
+    sleep(2);
+    return 0;
+}
+</code></pre>
+<h3 id="out-of-memory"><a class="header" href="#out-of-memory">Out of memory</a></h3>
+<p>The heap memory limit is set to 20 MiB.</p>
+<p>So this is not ok:</p>
+<pre><code class="language-cpp  run">#include &lt;vector&gt;
+int main() {
+    // int is 4 bytes on the server
+    std::vector&lt;int&gt; vec = std::vector&lt;int&gt;(5 * 1024 * 1024);
+    return 0;
+}
+</code></pre>
+<p>Actually, <code>std::vector&lt;int&gt;(4 * 1024 * 1024);</code> also not working, though I don't know why. I use the <code>setrlimit</code> in the <code>&lt;sys/resource.h&gt;</code> to set the limit, maybe there is some soft limit &amp; hard limit thing?</p>
+<h3 id="privilege-violation"><a class="header" href="#privilege-violation">Privilege violation</a></h3>
+<p>There is a limit to restrict you from directly manipulating the OS.</p>
+<p>This is not ok:</p>
+<pre><code class="language-cpp  run">#include &lt;cstdlib&gt;
+int main() {
+    system("ls");
+    return 0;
+}
+</code></pre>
+<h1 id="edition"><a class="header" href="#edition">Edition</a></h1>
+<p>Edition in the language identifier is used to specify which C++ standard you want to use for the compiler (default is C++11).</p>
+<p>You can use:</p>
+<pre><code>```cpp, run, edition17
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+int main() {
+    std::optional&lt;std::string&gt; maybeName;
+    maybeName = "Tom";
+    if (maybeName) {
+        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
+    }
+    return 0;
+}
+```
+</code></pre>
+<p>to specify the standard as C++17, and it will be rendered as:</p>
+<pre><code class="language-cpp  run  edition17">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+int main() {
+    std::optional&lt;std::string&gt; maybeName;
+    maybeName = "Tom";
+    if (maybeName) {
+        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+<p>and if you use C++11, it is expected that you see some compile error:</p>
+<pre><code class="language-cpp  run  edition11">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+int main() {
+    std::optional&lt;std::string&gt; maybeName;
+    maybeName = "Tom";
+    if (maybeName) {
+        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="runnable-code-block"><a class="header" href="#runnable-code-block">Runnable code block</a></h1>
+<p>Add <code>run</code> tag to the language declaration of the code block to enable running:</p>
+<pre><code>```cpp, run
+#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; "good" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "hello from cpp!" &lt;&lt; std::endl;
+    return 0;
+}
+```
+</code></pre>
+<p>rendered as:</p>
+<pre><code class="language-cpp  run">#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; "good" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "hello from cpp!" &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+<h1 id="editable-code"><a class="header" href="#editable-code">Editable code</a></h1>
+<p>Add <code>editable</code> to enable editing:</p>
+<pre><code>```cpp, editable, run
+#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; "hello from cpp!" &lt;&lt; std::endl;
+    return 0;
+}
+```
+</code></pre>
+<p>rendered as:</p>
+<pre><code class="language-cpp  editable  run">#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; "hello from cpp!" &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+<p>or you prefer rust:</p>
+<pre><pre class="playground"><code class="language-rust  editable">fn main() {
+    let number = 5;
+    print!("{}", number);
+}</code></pre></pre>
+<h1 id="hide-lines-in-code-block"><a class="header" href="#hide-lines-in-code-block">Hide lines in code block</a></h1>
+<p>Sometimes we just want the reader to focus on the important part of the code.</p>
+<blockquote>
+<p>Note:</p>
+<ul>
+<li>Editable code blocks can not use this feature.</li>
+</ul>
+</blockquote>
+<h3 id="rust"><a class="header" href="#rust">Rust</a></h3>
+<p>In rust, we can use <code>#</code> at the beginning of the line to automatically ignore that line:</p>
+<pre><code>```rust
+# #![allow(unused)]
+# fn main() {
+println!("Hello, World!");
+# }
+```
+</code></pre>
+<p>rendered as:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>println!("Hello, World!");
+<span class="boring">}</span></code></pre></pre>
+<h3 id="c"><a class="header" href="#c">C++</a></h3>
+<p>In C++, we use <code>~ </code> (note that there is a space after <code>~</code>) at the beginning of the line to automatically ignore that line:</p>
+<pre><code>```cpp
+~ #include &lt;iostream&gt;
+~ int main() {
+std::cout &lt;&lt; "hello from cpp with hidden lines!" &lt;&lt; std::endl;
+~ return 0;
+~ }
+```
+</code></pre>
+<pre><code class="language-cpp"><span class="boring">#include &lt;iostream&gt;
+</span><span class="boring">int main() {
+</span>std::cout &lt;&lt; "hello from cpp with hidden lines!" &lt;&lt; std::endl;
+<span class="boring">return 0;
+</span><span class="boring">}
+</span></code></pre>
+<div style="break-before: page; page-break-before: always;"></div><p>This tutorial is at <a href="https://github.com/rust-lang/mdBook/pull/2286">GitHub</a>, I just copied it, and it works for me.</p>
+<h1 id="custom-playground"><a class="header" href="#custom-playground">Custom Playground</a></h1>
+<p>By default, mdBook supports playground for Rust only.
+If you want to add playground for another language,
+you can do it by overriding script through theme customization.</p>
+<p>In this section, we will try to add a playground for the imaginary <code>example</code> language.</p>
+<h2 id="add-playground-option-to-code-blocks-in-the-book"><a class="header" href="#add-playground-option-to-code-blocks-in-the-book">Add <code>playground</code> option to code blocks in the book</a></h2>
+<p><code>playground</code> option is not officially supported.
+It is used to mark the code block should be translated to playground code block by JavaScript.</p>
+<pre><code class="language-markdown">```example,playground
+Example Language Code
+```
+</code></pre>
+<p><code>editable</code> option can be used like below:</p>
+<pre><code class="language-markdown">```example,playground,editable
+Example Language Code
+```
+</code></pre>
+<h2 id="modify-bookjs"><a class="header" href="#modify-bookjs">Modify <code>book.js</code></a></h2>
+<p><code>book.js</code> can be modified through theme customization.</p>
+<h3 id="remove-the-access-to-playrust-langorg"><a class="header" href="#remove-the-access-to-playrust-langorg">Remove the access to play.rust-lang.org</a></h3>
+<p>If there are playgrounds in the page, <code>book.js</code> will try to fetch crates list from play.rust-lang.org.
+So you shoud remove the following codes.</p>
+<pre><code class="language-javascript">    var playgrounds = Array.from(document.querySelectorAll(".playground"));
+    if (playgrounds.length &gt; 0) {
+        fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
+            headers: {
+                'Content-Type': "application/json",
+            },
+            method: 'POST',
+            mode: 'cors',
+        })
+        .then(response =&gt; response.json())
+        .then(response =&gt; {
+            // get list of crates available in the rust playground
+            let playground_crates = response.crates.map(item =&gt; item["id"]);
+            playgrounds.forEach(block =&gt; handle_crate_list_update(block, playground_crates));
+        });
+    }
+</code></pre>
+<h3 id="modify-run_rust_code-function"><a class="header" href="#modify-run_rust_code-function">Modify <code>run_rust_code</code> function</a></h3>
+<p>If a play button is pushed, <code>run_rust_code</code> function will be called to get the result of the playground.
+So you should modify the function for your language.</p>
+<pre><code class="language-javascript">    function run_rust_code(code_block) {
+        var result_block = code_block.querySelector(".result");
+        if (!result_block) {
+            result_block = document.createElement('code');
+            // If the result should be syntax highlighted,
+            // `language-bash` should be modified to the appropriate language.
+            result_block.className = 'result hljs language-bash';
+
+            code_block.append(result_block);
+        }
+
+        let text = playground_text(code_block);
+
+        // Add function to get result of the playground
+        result_block.innerText = example_language_run(text);
+
+        // If the result should be syntax highlighted, enable the following code.
+        //hljs.highlightBlock(result_block);
+    }
+</code></pre>
+<h3 id="add-code-for-code-block-transformation"><a class="header" href="#add-code-for-code-block-transformation">Add code for code block transformation</a></h3>
+<p>The following code transforms code blocks which have <code>playground</code> option to playground code blocks.</p>
+<pre><code class="language-javascript">    // Add &lt;pre class="playground"&gt; to playground codeblock
+    Array.from(document.querySelectorAll(".playground")).forEach((element) =&gt; {
+        let parent = element.parentNode;
+        let wrapper = document.createElement('pre');
+        wrapper.className = 'playground';
+        element.classList.remove('playground');
+        // set the wrapper as child (instead of the element)
+        parent.replaceChild(wrapper, element);
+        // set element as child of wrapper
+        wrapper.appendChild(element);
+    });
+</code></pre>
+<p>This should be executed before other processes of <code>codeSnippets</code> function.
+For example, the code should be inserted to the following point.</p>
+<pre><code class="language-javascript">    // Insert the above code
+
+    // Syntax highlighting Configuration
+    hljs.configure({
+        tabReplace: '    ', // 4 spaces
+        languages: [],      // Languages used for auto-detection
+    });
+
+    let code_nodes = Array
+        .from(document.querySelectorAll('code'))
+        // Don't highlight `inline code` blocks in headers.
+        .filter(function (node) {return !node.parentElement.classList.contains("header"); });
+</code></pre>
+<h3 id="tweak-for-editable-code-blocks"><a class="header" href="#tweak-for-editable-code-blocks">Tweak for editable code blocks</a></h3>
+<p>If the code block is editable, the syntax highlight is executed by editor.
+So the normal highlight mechanism should be disabled to avoid conflict.</p>
+<p>This is achieved by the following code.</p>
+<pre><code class="language-javascript">        // language-rust class needs to be removed for editable
+        // blocks or highlightjs will capture events
+        code_nodes
+            .filter(function (node) {return node.classList.contains("editable"); })
+            .forEach(function (block) { block.classList.remove('language-rust'); });
+</code></pre>
+<p>The language name shoud be changed to <code>language-example</code>.</p>
+<pre><code class="language-javascript">        // language-rust class needs to be removed for editable
+        // blocks or highlightjs will capture events
+        code_nodes
+            .filter(function (node) {return node.classList.contains("editable"); })
+            .forEach(function (block) { block.classList.remove('language-example'); });
+</code></pre>
+<h2 id="prepare-syntax-highlighting"><a class="header" href="#prepare-syntax-highlighting">Prepare syntax highlighting</a></h2>
+<p><a href="https://highlightjs.org">highlight.js</a> and <a href="https://ace.c9.io">Ace</a> are used for syntax highlighting.
+If the code block is <code>editable</code>, <code>Ace</code> is used, and if not <code>highlight.js</code> is used.
+So a syntax definition of <code>example</code> language should be prepared for each library.</p>
+<p>You can get the following JavaScript codes by following each library's document.</p>
+<ul>
+<li>highlight.js: <code>build/highlight.min.js</code></li>
+<li>Ace: <code>build/src-min-noconflict/mode-example.js</code></li>
+</ul>
+<p><code>highlight.js</code> can be overridden by theme.
+So the <code>build/highlight.min.js</code> should be moved to <code>theme/highlight.js</code> in the project.
+<code>mode-example.js</code> shoud be moved to the project root because it is not overridable.</p>
+<h2 id="modify-editorjs"><a class="header" href="#modify-editorjs">Modify <code>editor.js</code></a></h2>
+<p>The language configuration of Ace editor is set at <code>editor.js</code>.
+This script can't be customized through theme.
+So you should copy <code>editor.js</code> from the generated book directory to the project root.
+The copied file should be modified like below:</p>
+<pre><code class="language-javascript">        //editor.getSession().setMode("ace/mode/rust");
+        editor.getSession().setMode("ace/mode/example");
+</code></pre>
+<h2 id="set-additional-js"><a class="header" href="#set-additional-js">Set additional-js</a></h2>
+<p>You should add <code>editor.js</code> and <code>mode-example.js</code> to <code>additional-js</code> field of <code>book.toml</code>.</p>
+<pre><code class="language-toml">[output.html]
+additional-js = [
+  "mode-example.js",
+  "editor.js",
+]
+</code></pre>
+<h2 id="directory-structure"><a class="header" href="#directory-structure">Directory structure</a></h2>
+<p>The final directory structure becomes below:</p>
+<pre><code>.
+|-- book.toml
+|-- editor.js
+|-- mode-example.js
+|-- src
+`-- theme
+    |-- book.js
+    `-- highlight.js
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><p>Attribution-NonCommercial 4.0 International</p>
+<p>=======================================================================</p>
+<p>Creative Commons Corporation ("Creative Commons") is not a law firm and
+does not provide legal services or legal advice. Distribution of
+Creative Commons public licenses does not create a lawyer-client or
+other relationship. Creative Commons makes its licenses and related
+information available on an "as-is" basis. Creative Commons gives no
+warranties regarding its licenses, any material licensed under their
+terms and conditions, or any related information. Creative Commons
+disclaims all liability for damages resulting from their use to the
+fullest extent possible.</p>
+<p>Using Creative Commons Public Licenses</p>
+<p>Creative Commons public licenses provide a standard set of terms and
+conditions that creators and other rights holders may use to share
+original works of authorship and other material subject to copyright
+and certain other rights specified in the public license below. The
+following considerations are for informational purposes only, are not
+exhaustive, and do not form part of our licenses.</p>
+<pre><code> Considerations for licensors: Our public licenses are
+ intended for use by those authorized to give the public
+ permission to use material in ways otherwise restricted by
+ copyright and certain other rights. Our licenses are
+ irrevocable. Licensors should read and understand the terms
+ and conditions of the license they choose before applying it.
+ Licensors should also secure all rights necessary before
+ applying our licenses so that the public can reuse the
+ material as expected. Licensors should clearly mark any
+ material not subject to the license. This includes other CC-
+ licensed material, or material used under an exception or
+ limitation to copyright. More considerations for licensors:
+wiki.creativecommons.org/Considerations_for_licensors
+
+ Considerations for the public: By using one of our public
+ licenses, a licensor grants the public permission to use the
+ licensed material under specified terms and conditions. If
+ the licensor's permission is not necessary for any reason--for
+ example, because of any applicable exception or limitation to
+ copyright--then that use is not regulated by the license. Our
+ licenses grant only permissions under copyright and certain
+ other rights that a licensor has authority to grant. Use of
+ the licensed material may still be restricted for other
+ reasons, including because others have copyright or other
+ rights in the material. A licensor may make special requests,
+ such as asking that all changes be marked or described.
+ Although not required by our licenses, you are encouraged to
+ respect those requests where reasonable. More considerations
+ for the public:
+wiki.creativecommons.org/Considerations_for_licensees
+</code></pre>
+<p>=======================================================================</p>
+<p>Creative Commons Attribution-NonCommercial 4.0 International Public
+License</p>
+<p>By exercising the Licensed Rights (defined below), You accept and agree
+to be bound by the terms and conditions of this Creative Commons
+Attribution-NonCommercial 4.0 International Public License ("Public
+License"). To the extent this Public License may be interpreted as a
+contract, You are granted the Licensed Rights in consideration of Your
+acceptance of these terms and conditions, and the Licensor grants You
+such rights in consideration of benefits the Licensor receives from
+making the Licensed Material available under these terms and
+conditions.</p>
+<p>Section 1 -- Definitions.</p>
+<p>a. Adapted Material means material subject to Copyright and Similar
+Rights that is derived from or based upon the Licensed Material
+and in which the Licensed Material is translated, altered,
+arranged, transformed, or otherwise modified in a manner requiring
+permission under the Copyright and Similar Rights held by the
+Licensor. For purposes of this Public License, where the Licensed
+Material is a musical work, performance, or sound recording,
+Adapted Material is always produced where the Licensed Material is
+synched in timed relation with a moving image.</p>
+<p>b. Adapter's License means the license You apply to Your Copyright
+and Similar Rights in Your contributions to Adapted Material in
+accordance with the terms and conditions of this Public License.</p>
+<p>c. Copyright and Similar Rights means copyright and/or similar rights
+closely related to copyright including, without limitation,
+performance, broadcast, sound recording, and Sui Generis Database
+Rights, without regard to how the rights are labeled or
+categorized. For purposes of this Public License, the rights
+specified in Section 2(b)(1)-(2) are not Copyright and Similar
+Rights.
+d. Effective Technological Measures means those measures that, in the
+absence of proper authority, may not be circumvented under laws
+fulfilling obligations under Article 11 of the WIPO Copyright
+Treaty adopted on December 20, 1996, and/or similar international
+agreements.</p>
+<p>e. Exceptions and Limitations means fair use, fair dealing, and/or
+any other exception or limitation to Copyright and Similar Rights
+that applies to Your use of the Licensed Material.</p>
+<p>f. Licensed Material means the artistic or literary work, database,
+or other material to which the Licensor applied this Public
+License.</p>
+<p>g. Licensed Rights means the rights granted to You subject to the
+terms and conditions of this Public License, which are limited to
+all Copyright and Similar Rights that apply to Your use of the
+Licensed Material and that the Licensor has authority to license.</p>
+<p>h. Licensor means the individual(s) or entity(ies) granting rights
+under this Public License.</p>
+<p>i. NonCommercial means not primarily intended for or directed towards
+commercial advantage or monetary compensation. For purposes of
+this Public License, the exchange of the Licensed Material for
+other material subject to Copyright and Similar Rights by digital
+file-sharing or similar means is NonCommercial provided there is
+no payment of monetary compensation in connection with the
+exchange.</p>
+<p>j. Share means to provide material to the public by any means or
+process that requires permission under the Licensed Rights, such
+as reproduction, public display, public performance, distribution,
+dissemination, communication, or importation, and to make material
+available to the public including in ways that members of the
+public may access the material from a place and at a time
+individually chosen by them.</p>
+<p>k. Sui Generis Database Rights means rights other than copyright
+resulting from Directive 96/9/EC of the European Parliament and of
+the Council of 11 March 1996 on the legal protection of databases,
+as amended and/or succeeded, as well as other essentially
+equivalent rights anywhere in the world.</p>
+<p>l. You means the individual or entity exercising the Licensed Rights
+under this Public License. Your has a corresponding meaning.</p>
+<p>Section 2 -- Scope.</p>
+<p>a. License grant.</p>
+<pre><code>   1. Subject to the terms and conditions of this Public License,
+      the Licensor hereby grants You a worldwide, royalty-free,
+      non-sublicensable, non-exclusive, irrevocable license to
+      exercise the Licensed Rights in the Licensed Material to:
+
+        a. reproduce and Share the Licensed Material, in whole or
+           in part, for NonCommercial purposes only; and
+
+        b. produce, reproduce, and Share Adapted Material for
+           NonCommercial purposes only.
+
+   2. Exceptions and Limitations. For the avoidance of doubt, where
+      Exceptions and Limitations apply to Your use, this Public
+      License does not apply, and You do not need to comply with
+      its terms and conditions.
+
+   3. Term. The term of this Public License is specified in Section
+      6(a).
+
+   4. Media and formats; technical modifications allowed. The
+      Licensor authorizes You to exercise the Licensed Rights in
+      all media and formats whether now known or hereafter created,
+      and to make technical modifications necessary to do so. The
+      Licensor waives and/or agrees not to assert any right or
+      authority to forbid You from making technical modifications
+      necessary to exercise the Licensed Rights, including
+      technical modifications necessary to circumvent Effective
+      Technological Measures. For purposes of this Public License,
+      simply making modifications authorized by this Section 2(a)
+      (4) never produces Adapted Material.
+
+   5. Downstream recipients.
+
+        a. Offer from the Licensor -- Licensed Material. Every
+           recipient of the Licensed Material automatically
+           receives an offer from the Licensor to exercise the
+           Licensed Rights under the terms and conditions of this
+           Public License.
+
+        b. No downstream restrictions. You may not offer or impose
+           any additional or different terms or conditions on, or
+           apply any Effective Technological Measures to, the
+           Licensed Material if doing so restricts exercise of the
+           Licensed Rights by any recipient of the Licensed
+           Material.
+
+   6. No endorsement. Nothing in this Public License constitutes or
+      may be construed as permission to assert or imply that You
+      are, or that Your use of the Licensed Material is, connected
+      with, or sponsored, endorsed, or granted official status by,
+      the Licensor or others designated to receive attribution as
+      provided in Section 3(a)(1)(A)(i).
+</code></pre>
+<p>b. Other rights.</p>
+<pre><code>   1. Moral rights, such as the right of integrity, are not
+      licensed under this Public License, nor are publicity,
+      privacy, and/or other similar personality rights; however, to
+      the extent possible, the Licensor waives and/or agrees not to
+      assert any such rights held by the Licensor to the limited
+      extent necessary to allow You to exercise the Licensed
+      Rights, but not otherwise.
+
+   2. Patent and trademark rights are not licensed under this
+      Public License.
+
+   3. To the extent possible, the Licensor waives any right to
+      collect royalties from You for the exercise of the Licensed
+      Rights, whether directly or through a collecting society
+      under any voluntary or waivable statutory or compulsory
+      licensing scheme. In all other cases the Licensor expressly
+      reserves any right to collect such royalties, including when
+      the Licensed Material is used other than for NonCommercial
+      purposes.
+</code></pre>
+<p>Section 3 -- License Conditions.</p>
+<p>Your exercise of the Licensed Rights is expressly made subject to the
+following conditions.</p>
+<p>a. Attribution.</p>
+<pre><code>   1. If You Share the Licensed Material (including in modified
+      form), You must:
+
+        a. retain the following if it is supplied by the Licensor
+           with the Licensed Material:
+
+             i. identification of the creator(s) of the Licensed
+                Material and any others designated to receive
+                attribution, in any reasonable manner requested by
+                the Licensor (including by pseudonym if
+                designated);
+
+            ii. a copyright notice;
+
+           iii. a notice that refers to this Public License;
+
+            iv. a notice that refers to the disclaimer of
+                warranties;
+
+             v. a URI or hyperlink to the Licensed Material to the
+                extent reasonably practicable;
+
+        b. indicate if You modified the Licensed Material and
+           retain an indication of any previous modifications; and
+
+        c. indicate the Licensed Material is licensed under this
+           Public License, and include the text of, or the URI or
+           hyperlink to, this Public License.
+
+   2. You may satisfy the conditions in Section 3(a)(1) in any
+      reasonable manner based on the medium, means, and context in
+      which You Share the Licensed Material. For example, it may be
+      reasonable to satisfy the conditions by providing a URI or
+      hyperlink to a resource that includes the required
+      information.
+
+   3. If requested by the Licensor, You must remove any of the
+      information required by Section 3(a)(1)(A) to the extent
+      reasonably practicable.
+
+   4. If You Share Adapted Material You produce, the Adapter's
+      License You apply must not prevent recipients of the Adapted
+      Material from complying with this Public License.
+</code></pre>
+<p>Section 4 -- Sui Generis Database Rights.</p>
+<p>Where the Licensed Rights include Sui Generis Database Rights that
+apply to Your use of the Licensed Material:</p>
+<p>a. for the avoidance of doubt, Section 2(a)(1) grants You the right
+to extract, reuse, reproduce, and Share all or a substantial
+portion of the contents of the database for NonCommercial purposes
+only;</p>
+<p>b. if You include all or a substantial portion of the database
+contents in a database in which You have Sui Generis Database
+Rights, then the database in which You have Sui Generis Database
+Rights (but not its individual contents) is Adapted Material; and</p>
+<p>c. You must comply with the conditions in Section 3(a) if You Share
+all or a substantial portion of the contents of the database.</p>
+<p>For the avoidance of doubt, this Section 4 supplements and does not
+replace Your obligations under this Public License where the Licensed
+Rights include other Copyright and Similar Rights.</p>
+<p>Section 5 -- Disclaimer of Warranties and Limitation of Liability.</p>
+<p>a. UNLESS OTHERWISE SEPARATELY UNDERTAKEN BY THE LICENSOR, TO THE
+EXTENT POSSIBLE, THE LICENSOR OFFERS THE LICENSED MATERIAL AS-IS
+AND AS-AVAILABLE, AND MAKES NO REPRESENTATIONS OR WARRANTIES OF
+ANY KIND CONCERNING THE LICENSED MATERIAL, WHETHER EXPRESS,
+IMPLIED, STATUTORY, OR OTHER. THIS INCLUDES, WITHOUT LIMITATION,
+WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, NON-INFRINGEMENT, ABSENCE OF LATENT OR OTHER DEFECTS,
+ACCURACY, OR THE PRESENCE OR ABSENCE OF ERRORS, WHETHER OR NOT
+KNOWN OR DISCOVERABLE. WHERE DISCLAIMERS OF WARRANTIES ARE NOT
+ALLOWED IN FULL OR IN PART, THIS DISCLAIMER MAY NOT APPLY TO YOU.</p>
+<p>b. TO THE EXTENT POSSIBLE, IN NO EVENT WILL THE LICENSOR BE LIABLE
+TO YOU ON ANY LEGAL THEORY (INCLUDING, WITHOUT LIMITATION,
+NEGLIGENCE) OR OTHERWISE FOR ANY DIRECT, SPECIAL, INDIRECT,
+INCIDENTAL, CONSEQUENTIAL, PUNITIVE, EXEMPLARY, OR OTHER LOSSES,
+COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THIS PUBLIC LICENSE OR
+USE OF THE LICENSED MATERIAL, EVEN IF THE LICENSOR HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH LOSSES, COSTS, EXPENSES, OR
+DAMAGES. WHERE A LIMITATION OF LIABILITY IS NOT ALLOWED IN FULL OR
+IN PART, THIS LIMITATION MAY NOT APPLY TO YOU.</p>
+<p>c. The disclaimer of warranties and limitation of liability provided
+above shall be interpreted in a manner that, to the extent
+possible, most closely approximates an absolute disclaimer and
+waiver of all liability.</p>
+<p>Section 6 -- Term and Termination.</p>
+<p>a. This Public License applies for the term of the Copyright and
+Similar Rights licensed here. However, if You fail to comply with
+this Public License, then Your rights under this Public License
+terminate automatically.</p>
+<p>b. Where Your right to use the Licensed Material has terminated under
+Section 6(a), it reinstates:</p>
+<pre><code>   1. automatically as of the date the violation is cured, provided
+      it is cured within 30 days of Your discovery of the
+      violation; or
+
+   2. upon express reinstatement by the Licensor.
+
+ For the avoidance of doubt, this Section 6(b) does not affect any
+ right the Licensor may have to seek remedies for Your violations
+ of this Public License.
+</code></pre>
+<p>c. For the avoidance of doubt, the Licensor may also offer the
+Licensed Material under separate terms or conditions or stop
+distributing the Licensed Material at any time; however, doing so
+will not terminate this Public License.</p>
+<p>d. Sections 1, 5, 6, 7, and 8 survive termination of this Public
+License.</p>
+<p>Section 7 -- Other Terms and Conditions.</p>
+<p>a. The Licensor shall not be bound by any additional or different
+terms or conditions communicated by You unless expressly agreed.</p>
+<p>b. Any arrangements, understandings, or agreements regarding the
+Licensed Material not stated herein are separate from and
+independent of the terms and conditions of this Public License.</p>
+<p>Section 8 -- Interpretation.</p>
+<p>a. For the avoidance of doubt, this Public License does not, and
+shall not be interpreted to, reduce, limit, restrict, or impose
+conditions on any use of the Licensed Material that could lawfully
+be made without permission under this Public License.</p>
+<p>b. To the extent possible, if any provision of this Public License is
+deemed unenforceable, it shall be automatically reformed to the
+minimum extent necessary to make it enforceable. If the provision
+cannot be reformed, it shall be severed from this Public License
+without affecting the enforceability of the remaining terms and
+conditions.</p>
+<p>c. No term or condition of this Public License will be waived and no
+failure to comply consented to unless expressly agreed to by the
+Licensor.</p>
+<p>d. Nothing in this Public License constitutes or may be interpreted
+as a limitation upon, or waiver of, any privileges and immunities
+that apply to the Licensor or You, including from the legal
+processes of any jurisdiction or authority.</p>
+<p>=======================================================================</p>
+<p>Creative Commons is not a party to its public
+licenses. Notwithstanding, Creative Commons may elect to apply one of
+its public licenses to material it publishes and in those instances
+will be considered the “Licensor.” The text of the Creative Commons
+public licenses is dedicated to the public domain under the CC0 Public
+Domain Dedication. Except for the limited purpose of indicating that
+material is shared under a Creative Commons public license or as
+otherwise permitted by the Creative Commons policies published at
+creativecommons.org/policies, Creative Commons does not authorize the
+use of the trademark "Creative Commons" or any other trademark or logo
+of Creative Commons without its prior written consent including,
+without limitation, in connection with any unauthorized modifications
+to any of its public licenses or any other arrangements,
+understandings, or agreements concerning use of licensed material. For
+the avoidance of doubt, this paragraph does not form part of the
+public licenses.</p>
+<p>Creative Commons may be contacted at creativecommons.org.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="js/init.js"></script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="js/mermaid.min.js"></script>
+        <script src="js/mermaid-init.js"></script>
+        <script src="js/mode-c_cpp.js"></script>
+        <script src="js/editor.js"></script>
+        <script src="js/init.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

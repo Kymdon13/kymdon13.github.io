@@ -1,0 +1,37 @@
+[book]
+title = "Net Nook"
+authors = ["Kymdon13"]
+description = "A collection of notes and resources in learning and building."
+language = "en"
+multilingual = false
+
+[build]
+create-missing = false
+
+[output.html]
+git-repository-url = "https://kymdon13.github.io/"
+mathjax-support = true
+additional-js = ["js/mermaid.min.js", "js/mermaid-init.js", "js/mode-c_cpp.js", "js/editor.js", "js/init.js"]
+
+[output.html.search]
+limit-results = 7
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
+
+[output.html.code]
+# A prefix string per language (one or more chars).
+# Any line starting with whitespace+prefix is hidden.
+hidelines = { cpp = "~ " }
+
+[output.html.playground]
+editable = true
+line-numbers = true
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"

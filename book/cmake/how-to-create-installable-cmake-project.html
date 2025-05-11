@@ -1,0 +1,583 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>如何创建一个可安装的 CMake 包 - Net Nook</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="A collection of notes and resources in learning and building.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Net Nook</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://kymdon13.github.io/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>本文使用的 CMake 版本为：<code>3.16.3</code>；C/C++ 编译器为 <code>clang-17</code>。</p>
+<hr />
+<p>在我们需要使用第三方包时，我们需要：</p>
+<ul>
+<li>在安装时，使用 <a href="#cmake_install_prefix-%E6%A0%87%E5%BF%97">CMAKE_INSTALL_PREFIX 标志</a> 来指定安装根目录；</li>
+<li>安装完成后，可以用 <a href="#cmake_prefix_path-%E6%A0%87%E5%BF%97">CMAKE_PREFIX_PATH 标志</a> 指定包的搜索路径。</li>
+</ul>
+<p>当我们需要编写 CMake 可安装库时，我们需要：</p>
+<ul>
+<li>用 <a href="#install-%E5%91%BD%E4%BB%A4">install() 命令</a> 配置安装流程，以及生成 <code>*Config.cmake</code> 文件供消费者（引用包的人）搜索包文件。</li>
+</ul>
+<p>整体流程大概是：</p>
+<pre class="mermaid">graph TD
+	cmake -- 生成 --&gt; conf[配置文件] -- 读入配置 --&gt; make
+	make -- 生成 --&gt; exe[可执行文件、库文件]
+	conf -- 读入配置 --&gt; install[cmake --install]
+	exe -- 读取 --&gt; install
+	install -- 安装 --&gt; targetdir[指定目录]
+	targetdir -- 读取目录中的*Config.cmake --&gt; consumer[消费者]
+	consumer -- 通过*Config.cmake找到 --&gt; exe
+</pre>
+<h2 id="cmake_install_prefix-标志"><a class="header" href="#cmake_install_prefix-标志">CMAKE_INSTALL_PREFIX 标志</a></h2>
+<p><code>CMAKE_INSTALL_PREFIX</code> 是一个 CMake 变量，它定义了项目在执行安装（install）操作时，文件将被复制到的根目录。</p>
+<h3 id="什么时候设置和使用"><a class="header" href="#什么时候设置和使用">什么时候设置和使用？</a></h3>
+<h5 id="在命令行中设置"><a class="header" href="#在命令行中设置">在命令行中设置</a></h5>
+<p>通常在 CMake <strong>配置阶段</strong>（运行 <code>cmake ...</code> 命令时）通过命令行参数 <code>-DCMAKE_INSTALL_PREFIX=&lt;路径&gt;</code> 来设置。消费者可以指定他们希望软件安装到哪个目录下。 例如：</p>
+<pre><code class="language-shell">cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject &lt;path/to/CMakeLists.txt&gt;
+</code></pre>
+<p>如果在配置时没有显式指定，CMake 会有一个默认值（通常是 <code>/usr/local</code> 或 <code>/usr</code>，取决于系统和 CMake 版本）。</p>
+<h5 id="cmake-自动使用"><a class="header" href="#cmake-自动使用">CMake 自动使用</a></h5>
+<p>在 CMakeLists.txt 中，用 <code>install()</code> 命令来定义哪些文件和目标需要安装，以及它们相对于 <code>CMAKE_INSTALL_PREFIX</code> 应该放在哪个子目录下。</p>
+<p>在执行 <code>make install</code> 或 <code>cmake --install</code> 命令时，CMake 会读取这些 <code>install()</code> 定义，并将相应的文件复制到 <code>CMAKE_INSTALL_PREFIX</code> 指定的路径下的正确位置。</p>
+<h2 id="cmake_prefix_path-标志"><a class="header" href="#cmake_prefix_path-标志">CMAKE_PREFIX_PATH 标志</a></h2>
+<p>消费者在自己的 <code>CMakeLists.txt</code> 中加入：</p>
+<pre><code class="language-shell">list(APPEND CMAKE_PREFIX_PATH absolute/path/to/&lt;Package&gt;Config.cmake)
+</code></pre>
+<p>然后调用 <code>find_package(&lt;Package&gt; REQUIRED)</code> 就会在上述路径中搜索 <code>&lt;Package&gt;Config.cmake</code> 文件，该文件会收集包的必要信息。</p>
+<h2 id="install-命令"><a class="header" href="#install-命令">install() 命令</a></h2>
+<p><strong><code>install()</code> 命令：</strong>
+这是在 <code>CMakeLists.txt</code> 中定义安装规则的核心命令。它告诉 CMake 需要安装哪些文件、哪些目标，以及它们相对于 <code>CMAKE_INSTALL_PREFIX</code> 应该放在哪个目录下。</p>
+<p>常用的 <code>install()</code> 用法包括：</p>
+<pre><code class="language-cmake"># 安装 myexecutable 到 ${CMAKE_INSTALL_PREFIX}/bin
+install(TARGETS myexecutable DESTINATION bin)
+# 安装 mylibrary (动态或静态) 到 ${CMAKE_INSTALL_PREFIX}/lib
+install(TARGETS mylibrary DESTINATION lib)
+
+# 安装 myheader.h 到 ${CMAKE_INSTALL_PREFIX}/include
+install(FILES include/myheader.h DESTINATION include)
+
+# 安装 conf 目录下的所有内容到 ${CMAKE_INSTALL_PREFIX}/share/myproject/conf
+install(DIRECTORY conf/ DESTINATION share/myproject/conf)
+</code></pre>
+<h3 id="导出项目安装信息"><a class="header" href="#导出项目安装信息">导出项目安装信息</a></h3>
+<p>我们还可以导出项目安装信息：</p>
+<pre><code class="language-cmake">install(EXPORT &lt;export-name&gt; DESTINATION &lt;相对路径&gt; ...)
+</code></pre>
+<p>这个用于导出 CMake 目标信息，生成 <code>.cmake</code> 文件（如 <code>*Config.cmake</code>），使得其他 CMake 项目可以通过 <code>find_package()</code> 来找到并使用该项目。</p>
+<p>这些导出的文件通常安装在：</p>
+<pre><code>${CMAKE_INSTALL_PREFIX}/lib/cmake/&lt;ProjectName&gt;
+${CMAKE_INSTALL_PREFIX}/share/cmake/&lt;ProjectName&gt;
+</code></pre>
+<h3 id="安装命令"><a class="header" href="#安装命令">安装命令</a></h3>
+<p>在编译完成后，执行以下命令，会触发 CMake 的安装过程，根据 <code>CMakeLists.txt</code> 中定义的所有 <code>install()</code> 规则，将文件从构建目录复制或移动到 <code>CMAKE_INSTALL_PREFIX</code> 指定的安装目录下：</p>
+<ul>
+<li><code>make install</code>：如果用的是 Makefile 生成器。</li>
+<li><code>cmake --install &lt;构建目录&gt;</code>：这是更通用的方法，适用于所有 CMake 生成器。</li>
+</ul>
+<h2 id="应用示例"><a class="header" href="#应用示例">应用示例</a></h2>
+<p>现在我们创建一个目录结构如下：</p>
+<pre><code>Apple/
+├── CMakeLists.txt
+├── install
+├── src
+│   ├── Apple.cc
+│   ├── Apple.h
+│   └── CMakeLists.txt
+└── test
+    ├── CMakeLists.txt
+    └── main.cc
+</code></pre>
+<p>在这个项目中，我们定义了一个 <code>Apple</code> 类，这个类依赖于 <code>ZLIB</code>。</p>
+<h3 id="c-文件"><a class="header" href="#c-文件">C++ 文件</a></h3>
+<pre><code class="language-cpp">// src/Apple.h
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+class Apple {
+public:
+    Apple(std::string data);
+    ~Apple();
+    std::string data();
+    std::vector&lt;unsigned char&gt; zippedString();
+
+private:
+    std::string data_;
+};
+</code></pre>
+<pre><code class="language-cpp">// src/Apple.cc
+#include "Apple.h"
+
+#include &lt;zlib.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+Apple::Apple(std::string data) : data_(data) {
+    std::cout &lt;&lt; "Apple constructor called" &lt;&lt; std::endl;
+}
+
+Apple::~Apple() {
+    std::cout &lt;&lt; "Apple destructor called" &lt;&lt; std::endl;
+}
+
+std::string Apple::data() {
+    return data_;
+}
+
+std::vector&lt;unsigned char&gt; Apple::zippedString() {
+    uLong srcLen = data_.size();
+    uLong destLen = compressBound(srcLen);
+    std::vector&lt;unsigned char&gt; out;
+    out.resize(destLen);
+
+    // Compress the string
+    int res = compress(out.data(), &amp;destLen, reinterpret_cast&lt;const Bytef *&gt;(data_.data()), srcLen);
+    if (res != Z_OK)
+    {
+        std::cerr &lt;&lt; "compress() failed with code " &lt;&lt; res &lt;&lt; std::endl;
+    }
+
+    out.resize(destLen); // trim unused space
+    return out;
+}
+</code></pre>
+<pre><code class="language-cpp">// test/main.cc
+#include "Apple.h"
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main() {
+    Apple apple("Hello, World!");
+    std::cout &lt;&lt; "Apple data: " &lt;&lt; apple.data() &lt;&lt; std::endl;
+
+    for (auto byte : apple.zippedString()) {
+        std::cout &lt;&lt; byte;
+    }
+    std::cout &lt;&lt; std::endl;
+}
+</code></pre>
+<h3 id="cmakeliststxt"><a class="header" href="#cmakeliststxt">CMakeLists.txt</a></h3>
+<p>然后是主目录、<code>test</code> 目录、<code>src</code> 目录下的 <code>CMakeLists.txt</code>：</p>
+<pre><code class="language-cmake"># ./CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(Apple VERSION 0.1.0)
+
+set(CMAKE_C_COMPILER clang) # set C compiler
+set(CMAKE_CXX_COMPILER clang++) # set C++ compiler
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # set runtime output dir
+
+add_compile_options(-stdlib=libc++) # set compile options
+add_link_options(-stdlib=libc++ -lc++ -lc++abi -fuse-ld=lld) # set link options
+
+add_subdirectory(test)
+add_subdirectory(src)
+</code></pre>
+<pre><code class="language-cmake"># test/CMakeLists.txt
+add_executable(main main.cc)
+target_link_libraries(main PRIVATE Apple)
+</code></pre>
+<pre><code class="language-cmake"># src/CMakeLists.txt
+
+# 定义一个库目标
+file(GLOB LIB_SRC *.cc)
+add_library(Apple SHARED ${LIB_SRC})
+set(Apple_INSTALL_CMAKEDIR cmake/mylib)
+
+# 定义库的公共包含目录（接口属性 INSTALL_INTERFACE 会被导出）
+target_include_directories(Apple
+    PUBLIC
+        $&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include&gt;
+        $&lt;INSTALL_INTERFACE:include&gt;
+    PRIVATE
+        src
+)
+
+# 定义库的接口链接依赖（例如依赖第三方库）
+find_package(ZLIB REQUIRED)
+target_link_libraries(Apple PUBLIC ZLIB::ZLIB)
+
+# --- 安装实际的目标文件 ---
+install(DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE
+)
+
+# 安装库文件到 ${CMAKE_INSTALL_PREFIX}/lib
+set(TARGETS_EXPORT_NAME AppleTargets)
+install(TARGETS Apple
+    DESTINATION lib
+    EXPORT ${TARGETS_EXPORT_NAME}
+)
+
+# --- 生成并安装导出文件 ---
+install(EXPORT ${TARGETS_EXPORT_NAME}
+    DESTINATION ${Apple_INSTALL_CMAKEDIR}
+    NAMESPACE mylib::
+)
+
+# 生成并安装 Package Configuration 文件
+include(CMakePackageConfigHelpers)
+# 生成 AppleConfig.cmake 到构建目录
+configure_package_config_file(
+    ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    INSTALL_DESTINATION ${Apple_INSTALL_CMAKEDIR}
+)
+# 生成 *ConfigVersion.cmake 到构建目录
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
+# 将构建目录中的 *Config.cmake 等文件安装到指定路径
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    DESTINATION ${Apple_INSTALL_CMAKEDIR}
+)
+</code></pre>
+<h3 id="cmake-模板文件"><a class="header" href="#cmake-模板文件">CMake 模板文件</a></h3>
+<p>此外，我们还需要为 <code>AppleConfig.cmake</code> 写一个模板文件 <code>AppleConfig.cmake.in</code>：</p>
+<pre><code class="language-shell">@PACKAGE_INIT@
+
+# 查找依赖
+include(CMakeFindDependencyMacro) # find_dependency() 宏需要这个模块
+find_dependency(ZLIB REQUIRED)
+
+# 包含版本文件
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@ConfigVersion.cmake")
+
+# 包含由 install(EXPORT ...) 生成的目标文件
+include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")
+
+# 标记 Package 已找到
+set(@PROJECT_NAME@_FOUND TRUE)
+</code></pre>
+<p>接下来就可以进行构建了。</p>
+<blockquote>
+<p>有几点注意事项：</p>
+<ul>
+<li>模板文件中的占位符 <code>@TARGETS_EXPORT_NAME@</code> 是我们自定义的，在 <code>src/CMakeLists.txt</code> 中创建；</li>
+<li>对于库的每一个依赖（本库只用了 ZLIB 一个依赖）需要在模板文件中用 <code>find_dependency()</code> 收集包的信息。</li>
+</ul>
+<p>另外，<code>AppleConfig.cmake</code> 其实就是 <code>configure_package_config_file()</code> 将 <code>AppleConfig.cmake.in</code> 中的 <code>@@</code> 占位符全部展开后生成的。</p>
+</blockquote>
+<h3 id="构建"><a class="header" href="#构建">构建</a></h3>
+<p>在 <code>Apple</code> 目录下执行（这里路径替换为你的 <code>install</code> 目录绝对路径）：</p>
+<pre><code class="language-shell">rm -rf build/
+mkdir build &amp;&amp; cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
+</code></pre>
+<h3 id="安装"><a class="header" href="#安装">安装</a></h3>
+<p>在 <code>Apple/build</code> 目录下执行：</p>
+<pre><code class="language-shell">cmake --install .
+</code></pre>
+<p>安装完成后，我们应该能看到：</p>
+<pre><code>Apple/install/
+├── cmake
+│   └── mylib
+│       ├── AppleConfig.cmake
+│       ├── AppleConfigVersion.cmake
+│       ├── AppleTargets.cmake
+│       └── AppleTargets-noconfig.cmake
+├── include
+│   └── Apple.h
+└── lib
+    └── libApple.so
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>Apple.h</code> 暴露类声明给消费者，用于编译；</li>
+<li><code>libApple.so</code> 为类的实际实现，用于链接；</li>
+<li><code>cmake</code> 目录下是用于搜索包的 CMake 脚本。</li>
+</ul>
+<h3 id="消费者怎么使用-apple-库"><a class="header" href="#消费者怎么使用-apple-库">消费者怎么使用 Apple 库</a></h3>
+<p>我们创建一个 <code>Peach</code> 目录，并写入以下文件：</p>
+<pre><code class="language-shell">Peach/
+├── CMakeLists.txt
+└── test
+    ├── CMakeLists.txt
+    └── main.cc
+</code></pre>
+<p>其中 <code>main.cc</code> 和 Apple 中的 <code>main.cc</code> 完全一样。</p>
+<p>主目录、<code>test</code> 目录下的 <code>CMakeLists.txt</code>：</p>
+<pre><code class="language-shell"># ./CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(Peach VERSION 0.1.0)
+
+set(CMAKE_C_COMPILER clang) # set C compiler
+set(CMAKE_CXX_COMPILER clang++) # set C++ compiler
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # set runtime output dir
+
+add_compile_options(-stdlib=libc++) # set compile options
+add_link_options(-stdlib=libc++ -lc++ -lc++abi -fuse-ld=lld) # set link options
+
+list(APPEND CMAKE_PREFIX_PATH "~/Apple/install/cmake/mylib")
+find_package(Apple REQUIRED)
+
+add_subdirectory(test)
+</code></pre>
+<pre><code class="language-shell"># test/CMakeLists.txt
+add_executable(main main.cc)
+target_link_libraries(main PRIVATE mylib::Apple)
+</code></pre>
+<p>OK，现在我们创建并进入 <code>Peach/build</code> 目录然后执行：</p>
+<pre><code class="language-shell">cmake ..
+make # 成功输出可执行文件 main
+</code></pre>
+<h3 id="总结"><a class="header" href="#总结">总结</a></h3>
+<p>至此，我们已经实现了 Apple 的安装：</p>
+<ul>
+<li>创建一个名为 Apple 的库（<code>add_library()</code>）；</li>
+<li>利用 <code>install(...)</code> 将头文件目录、库文件安装（其实就是复制）到自定义目录下（<code>Apple/install</code>）；</li>
+<li>通过 <code>target_include_directories($&lt;INSTALL_INTERFACE:include&gt;)</code> 导出头文件目录的相对路径（相对于 <code>CMAKE_INSTALL_PREFIX</code>）到 <code>*Targets.cmake</code>；</li>
+<li>利用 <code>install(EXPORT ...)</code> 导出 <code>*Targets.cmake</code> 到 CMake 的安装路径，并设置命名空间为 <code>mylib::</code>；</li>
+<li>利用 CMake 宏生成 <code>*Config.cmake</code>、<code>*ConfigVersion.cmake</code> 等收集包信息并验证包可用性的 CMake 脚本；</li>
+</ul>
+<p>以及消费者的使用：</p>
+<ul>
+<li>安装完成后，消费者通过 <code>find_package()</code> 引入 Apple 库；</li>
+<li>并通过 <code>target_link_libraries()</code> 将 <code>mylib::Apple</code> 链接到可执行文件。</li>
+</ul>
+<hr />
+<p>你可以动手尝试一下（这个仓库里有更详细的 CMake 注释）：<a href="https://github.com/Kymdon13/How-To-Create-Installable-CMake-Project">如何创建一个可安装 CMake 包</a>。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../cmake/cmake-module.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../cpp-playground.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../cmake/cmake-module.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../cpp-playground.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../js/init.js"></script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../js/mermaid.min.js"></script>
+        <script src="../js/mermaid-init.js"></script>
+        <script src="../js/mode-c_cpp.js"></script>
+        <script src="../js/editor.js"></script>
+        <script src="../js/init.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+
+    </div>
+    </body>
+</html>
