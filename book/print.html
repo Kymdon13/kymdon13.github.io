@@ -1,49 +1,52 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Net Nook</title>
-        <meta name="robots" content="noindex">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Net Nook</title>
+    <meta name="robots" content="noindex">
 
 
-        <!-- Custom HTML head -->
+    <!-- Custom HTML head -->
 
-        <meta name="description" content="A collection of notes and resources in learning and building.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="A collection of notes and resources in learning and building.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+    <link rel="icon" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="fonts/fonts.css">
 
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" id="highlight-css" href="highlight.css">
+    <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+    <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
-        <!-- Custom theme stylesheets -->
+    <!-- Custom theme stylesheets -->
 
-        <!-- MathJax -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax -->
+    <script async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-        <!-- Provide site root and default themes to javascript -->
-        <script>
-            const path_to_root = "";
-            const default_light_theme = "light";
-            const default_dark_theme = "navy";
-        </script>
-        <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
-    </head>
-    <body>
+    <!-- Provide site root and default themes to javascript -->
+    <script>
+        const path_to_root = "";
+        const default_light_theme = "light";
+        const default_dark_theme = "navy";
+    </script>
+    <!-- Start loading toc.js asap -->
+    <script src="toc.js"></script>
+</head>
+
+<body>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -65,7 +68,7 @@
         <script>
             const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
             let theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
             html.classList.remove('light')
@@ -80,7 +83,7 @@
             let sidebar = null;
             const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
@@ -107,10 +110,14 @@
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor"
+                            title="Toggle Table of Contents" aria-label="Toggle Table of Contents"
+                            aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
@@ -121,7 +128,9 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -141,7 +150,8 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -154,7 +164,7 @@
                 <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
@@ -197,7 +207,40 @@ The mdBook is a utility to create modern online books from Markdown files (taken
 <ul>
 <li>Give credit to the creator.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="mdbook-features"><a class="header" href="#mdbook-features">mdBook features</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="acejs"><a class="header" href="#acejs">ace.js</a></h1>
+<p>If you want to add a new language in the backend and get the auto completion feature for this language, you just have to copy the <code>mode-&lt;language&gt;.js</code> file from <code>ace/src-min-nonconflict</code> (download it yourself on GitHub for the build version, I'm using <code>ace-builds-1.5.0</code>) to <code>js/</code> and add it to the <code>book.toml</code>:</p>
+<pre><code class="language-toml">additional-js = [
+    "js/mode-&lt;language&gt;.js",
+]
+</code></pre>
+<p>and <code>index.hbs</code>:</p>
+<pre><code class="language-handlebars">&lt;script src="{{ resource "js/mode-&lt;language&gt;.js" }}"&gt;&lt;/script&gt;
+</code></pre>
+<blockquote>
+<p>Note that you must remove the original code in <code>index.hbs</code> because we are adding them all by hand:</p>
+<pre><code class="language-handlebars">{{#each additional_js}}
+&lt;script src="{{ resource this }}"&gt;&lt;/script&gt;
+{{/each}}
+</code></pre>
+</blockquote>
+<h1 id="highlightjs"><a class="header" href="#highlightjs">highlight.js</a></h1>
+<p>For language support add the <code>all-languages.min.js</code> to the <code>js/</code>, <code>book.toml</code> and <code>index.hbs</code>.</p>
+<p>Tht <code>all-languages.min.js</code> is obtained by concat all js in <code>https://github.com/highlightjs/cdn-release/tree/11.11.1/build/languages</code>:</p>
+<pre><code class="language-bash">cat $(find ./languages -maxdepth 1 -type f ! -name 'all-languages.min.js') &gt; all-languages.min.js
+</code></pre>
+<h3 id="some-examples"><a class="header" href="#some-examples">Some examples</a></h3>
+<p>bash:</p>
+<pre><code class="language-bash">some=hhh
+if [ -n dir ]; do
+    echo ${some}
+fi
+</code></pre>
+<p>python:</p>
+<pre><code class="language-python">for i in range(1,20):
+    while i &lt; 10:
+        print(123)
+</code></pre>
+<h1 id="mdbook-features"><a class="header" href="#mdbook-features">mdBook features</a></h1>
 <h3 id="classlist-of-code-block"><a class="header" href="#classlist-of-code-block">classList of code block</a></h3>
 <p>If you create a code block like:</p>
 <pre><code>```cpp
@@ -269,6 +312,9 @@ int main() {}
 - [CMake](./cmake/cmake.md)
     - [CMake 模块和包](./cmake/cmake-module.md)
     - [如何创建一个可安装的 CMake 包](./cmake/how-to-create-installable-cmake-project.md)
+
+- [gRPC](./grpc/grpc.md)
+    - [gRPC 中的 CompletionQueue 模型](./grpc/cq-model.md)
 
 - [CPP Playground](./cpp-playground.md)
 
@@ -612,7 +658,7 @@ target_link_libraries(&lt;another_target&gt; PUBLIC|PRIVATE|INTERFACE &lt;target
 <h3 id="什么时候设置和使用"><a class="header" href="#什么时候设置和使用">什么时候设置和使用？</a></h3>
 <h5 id="在命令行中设置"><a class="header" href="#在命令行中设置">在命令行中设置</a></h5>
 <p>通常在 CMake <strong>配置阶段</strong>（运行 <code>cmake ...</code> 命令时）通过命令行参数 <code>-DCMAKE_INSTALL_PREFIX=&lt;路径&gt;</code> 来设置。消费者可以指定他们希望软件安装到哪个目录下。 例如：</p>
-<pre><code class="language-shell">cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject &lt;path/to/CMakeLists.txt&gt;
+<pre><code class="language-bash">cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject &lt;path/to/CMakeLists.txt&gt;
 </code></pre>
 <p>如果在配置时没有显式指定，CMake 会有一个默认值（通常是 <code>/usr/local</code> 或 <code>/usr</code>，取决于系统和 CMake 版本）。</p>
 <h5 id="cmake-自动使用"><a class="header" href="#cmake-自动使用">CMake 自动使用</a></h5>
@@ -620,7 +666,7 @@ target_link_libraries(&lt;another_target&gt; PUBLIC|PRIVATE|INTERFACE &lt;target
 <p>在执行 <code>make install</code> 或 <code>cmake --install</code> 命令时，CMake 会读取这些 <code>install()</code> 定义，并将相应的文件复制到 <code>CMAKE_INSTALL_PREFIX</code> 指定的路径下的正确位置。</p>
 <h2 id="cmake_prefix_path-标志"><a class="header" href="#cmake_prefix_path-标志">CMAKE_PREFIX_PATH 标志</a></h2>
 <p>消费者在自己的 <code>CMakeLists.txt</code> 中加入：</p>
-<pre><code class="language-shell">list(APPEND CMAKE_PREFIX_PATH absolute/path/to/&lt;Package&gt;Config.cmake)
+<pre><code class="language-cmake">list(APPEND CMAKE_PREFIX_PATH absolute/path/to/&lt;Package&gt;Config.cmake)
 </code></pre>
 <p>然后调用 <code>find_package(&lt;Package&gt; REQUIRED)</code> 就会在上述路径中搜索 <code>&lt;Package&gt;Config.cmake</code> 文件，该文件会收集包的必要信息。</p>
 <h2 id="install-命令"><a class="header" href="#install-命令">install() 命令</a></h2>
@@ -644,7 +690,7 @@ install(DIRECTORY conf/ DESTINATION share/myproject/conf)
 </code></pre>
 <p>这个用于导出 CMake 目标信息，生成 <code>.cmake</code> 文件（如 <code>*Config.cmake</code>），使得其他 CMake 项目可以通过 <code>find_package()</code> 来找到并使用该项目。</p>
 <p>这些导出的文件通常安装在：</p>
-<pre><code>${CMAKE_INSTALL_PREFIX}/lib/cmake/&lt;ProjectName&gt;
+<pre><code class="language-cmake">${CMAKE_INSTALL_PREFIX}/lib/cmake/&lt;ProjectName&gt;
 ${CMAKE_INSTALL_PREFIX}/share/cmake/&lt;ProjectName&gt;
 </code></pre>
 <h3 id="安装命令"><a class="header" href="#安装命令">安装命令</a></h3>
@@ -821,7 +867,7 @@ install(FILES
 </code></pre>
 <h3 id="cmake-模板文件"><a class="header" href="#cmake-模板文件">CMake 模板文件</a></h3>
 <p>此外，我们还需要为 <code>AppleConfig.cmake</code> 写一个模板文件 <code>AppleConfig.cmake.in</code>：</p>
-<pre><code class="language-shell">@PACKAGE_INIT@
+<pre><code class="language-cmake">@PACKAGE_INIT@
 
 # 查找依赖
 include(CMakeFindDependencyMacro) # find_dependency() 宏需要这个模块
@@ -847,13 +893,13 @@ set(@PROJECT_NAME@_FOUND TRUE)
 </blockquote>
 <h3 id="构建"><a class="header" href="#构建">构建</a></h3>
 <p>在 <code>Apple</code> 目录下执行（这里路径替换为你的 <code>install</code> 目录绝对路径）：</p>
-<pre><code class="language-shell">rm -rf build/
+<pre><code class="language-bash">rm -rf build/
 mkdir build &amp;&amp; cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 </code></pre>
 <h3 id="安装"><a class="header" href="#安装">安装</a></h3>
 <p>在 <code>Apple/build</code> 目录下执行：</p>
-<pre><code class="language-shell">cmake --install .
+<pre><code class="language-bash">cmake --install .
 </code></pre>
 <p>安装完成后，我们应该能看到：</p>
 <pre><code>Apple/install/
@@ -876,7 +922,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 </ul>
 <h3 id="消费者怎么使用-apple-库"><a class="header" href="#消费者怎么使用-apple-库">消费者怎么使用 Apple 库</a></h3>
 <p>我们创建一个 <code>Peach</code> 目录，并写入以下文件：</p>
-<pre><code class="language-shell">Peach/
+<pre><code>Peach/
 ├── CMakeLists.txt
 └── test
     ├── CMakeLists.txt
@@ -884,7 +930,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 </code></pre>
 <p>其中 <code>main.cc</code> 和 Apple 中的 <code>main.cc</code> 完全一样。</p>
 <p>主目录、<code>test</code> 目录下的 <code>CMakeLists.txt</code>：</p>
-<pre><code class="language-shell"># ./CMakeLists.txt
+<pre><code class="language-cmake"># ./CMakeLists.txt
 cmake_minimum_required(VERSION 3.16)
 project(Peach VERSION 0.1.0)
 
@@ -900,12 +946,12 @@ find_package(Apple REQUIRED)
 
 add_subdirectory(test)
 </code></pre>
-<pre><code class="language-shell"># test/CMakeLists.txt
+<pre><code class="language-cmake"># test/CMakeLists.txt
 add_executable(main main.cc)
 target_link_libraries(main PRIVATE mylib::Apple)
 </code></pre>
 <p>OK，现在我们创建并进入 <code>Peach/build</code> 目录然后执行：</p>
-<pre><code class="language-shell">cmake ..
+<pre><code class="language-bash">cmake ..
 make # 成功输出可执行文件 main
 </code></pre>
 <h3 id="总结"><a class="header" href="#总结">总结</a></h3>
@@ -924,88 +970,85 @@ make # 成功输出可执行文件 main
 </ul>
 <hr />
 <p>你可以动手尝试一下（这个仓库里有更详细的 CMake 注释）：<a href="https://github.com/Kymdon13/How-To-Create-Installable-CMake-Project">如何创建一个可安装 CMake 包</a>。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="exception"><a class="header" href="#exception">Exception</a></h1>
-<p>There are some exceptions you might run into:</p>
-<h3 id="timeout"><a class="header" href="#timeout">Timeout</a></h3>
-<p>The time limit is set to 2 seconds of each process.</p>
-<p>So this is ok:</p>
-<pre><code class="language-cpp  run">#include &lt;unistd.h&gt;
-int main() {
-    sleep(1);
-    return 0;
-}
-</code></pre>
-<p>while this is not:</p>
-<pre><code class="language-cpp  run">#include &lt;unistd.h&gt;
-int main() {
-    sleep(2);
-    return 0;
-}
-</code></pre>
-<h3 id="out-of-memory"><a class="header" href="#out-of-memory">Out of memory</a></h3>
-<p>The heap memory limit is set to 20 MiB.</p>
-<p>So this is not ok:</p>
-<pre><code class="language-cpp  run">#include &lt;vector&gt;
-int main() {
-    // int is 4 bytes on the server
-    std::vector&lt;int&gt; vec = std::vector&lt;int&gt;(5 * 1024 * 1024);
-    return 0;
-}
-</code></pre>
-<p>Actually, <code>std::vector&lt;int&gt;(4 * 1024 * 1024);</code> also not working, though I don't know why. I use the <code>setrlimit</code> in the <code>&lt;sys/resource.h&gt;</code> to set the limit, maybe there is some soft limit &amp; hard limit thing?</p>
-<h3 id="privilege-violation"><a class="header" href="#privilege-violation">Privilege violation</a></h3>
-<p>There is a limit to restrict you from directly manipulating the OS.</p>
-<p>This is not ok:</p>
-<pre><code class="language-cpp  run">#include &lt;cstdlib&gt;
-int main() {
-    system("ls");
-    return 0;
-}
-</code></pre>
-<h1 id="edition"><a class="header" href="#edition">Edition</a></h1>
-<p>Edition in the language identifier is used to specify which C++ standard you want to use for the compiler (default is C++11).</p>
-<p>You can use:</p>
-<pre><code>```cpp, run, edition17
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;optional&gt;
-int main() {
-    std::optional&lt;std::string&gt; maybeName;
-    maybeName = "Tom";
-    if (maybeName) {
-        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
-    }
-    return 0;
-}
-```
-</code></pre>
-<p>to specify the standard as C++17, and it will be rendered as:</p>
-<pre><code class="language-cpp  run  edition17">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;optional&gt;
-int main() {
-    std::optional&lt;std::string&gt; maybeName;
-    maybeName = "Tom";
-    if (maybeName) {
-        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>
-<p>and if you use C++11, it is expected that you see some compile error:</p>
-<pre><code class="language-cpp  run  edition11">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;optional&gt;
-int main() {
-    std::optional&lt;std::string&gt; maybeName;
-    maybeName = "Tom";
-    if (maybeName) {
-        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
-    }
-    return 0;
-}
-</code></pre>
-<h1 id="runnable-code-block"><a class="header" href="#runnable-code-block">Runnable code block</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><p>gRPC 从入门到放弃。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>本文使用的是 <code>gRPC v1.71.0</code>。使用的是官方的 <code>grpc/examples/cpp/helloworld</code> 中的示例。</p>
+<p>gRPC 有 2 种异步模型，一个是 Callback API，还有一个就是 CompletionQueue API。</p>
+<h3 id="completionqueue-是什么"><a class="header" href="#completionqueue-是什么">CompletionQueue 是什么</a></h3>
+<p>我们可以将 CompletionQueue 等效为一个由 gRPC 管理的消息队列，一个基本的服务端模型如下图所示（简略版）：</p>
+<pre class="mermaid">sequenceDiagram
+	ServerImpl.HandleRpcs()-&gt;&gt;cd1: new CallData()
+	cd1-&gt;&gt;cd1.Proceed(): cd1.status_ = CREATE
+	cd1.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd1 to service_
+	loop Forever
+		ServerImpl.HandleRpcs()-&gt;&gt;cq_.Next(): block here and waiting for request
+		cq_.Next()-&gt;&gt;ServerImpl.HandleRpcs(): a request coming in, return it
+		ServerImpl.HandleRpcs()-&gt;&gt;cd1.Proceed(): process the request, cd1.status_ = PROCESS
+		cd1.Proceed()-&gt;&gt;cd2: create a new CallData cd2
+        cd2-&gt;&gt;cd2.Proceed(): cd2.status_ = CREATE
+        cd2.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd2 to service_
+		cd1.Proceed()-&gt;&gt;responder_.Finish(): prepare the reply and call the Async Finish()
+		responder_.Finish()-&gt;&gt;cd1.Proceed(): status = FINISH
+        cd1.Proceed()-&gt;&gt;cd1: delete cd1
+        ServerImpl.HandleRpcs()-&gt;&gt;cq_.Next(): block here and waiting for request
+		cq_.Next()-&gt;&gt;ServerImpl.HandleRpcs(): a request coming in, return it
+		ServerImpl.HandleRpcs()-&gt;&gt;cd2.Proceed(): process the request, cd2.status_ = PROCESS
+		cd2.Proceed()-&gt;&gt;cd3: create a new CallData cd3...
+	end
+</pre>
+<p>在服务器启动后（<code>ServerImpl.Run()</code> 调用 <code>ServerImpl.HandleRpcs()</code> 进入循环），通过不断生成 <code>CallData</code> 实例来处理数据。</p>
+<blockquote>
+<p><code>service_</code> 指的是 <code>AsyncService</code> 实例。</p>
+<p>这里的 <code>cd1</code>、<code>cd2</code> 等仅用于指代不同的 <code>CallData</code> 实例，实际上我们并不会在 <code>HandleRpcs()</code> 中保存 <code>new</code> 出来的 <code>CallData</code> 实例，而是直接将其注册到 <code>AsyncService</code> 由 gRPC 来接管。</p>
+</blockquote>
+<p>对应的客户端模型：</p>
+<pre class="mermaid">sequenceDiagram
+	SayHello()-&gt;&gt;stub_.AsyncSayHello(): send Async request
+	SayHello()-&gt;&gt;rpc.Finish(): regi
+	cd1-&gt;&gt;cd1.Proceed(): cd1.status_ = CREATE
+	cd1.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd1 to service_
+    ServerImpl.HandleRpcs()-&gt;&gt;cq_.Next(): block here and waiting for request
+    cq_.Next()-&gt;&gt;ServerImpl.HandleRpcs(): a request coming in, return it
+
+</pre>
+<h3 id="如何实现线程池"><a class="header" href="#如何实现线程池">如何实现线程池</a></h3>
+<p>在 gRPC 中，我们将多个 CQ（CompletionQueue）注册到 <code>service_</code> 之后，当有新的请求到达时，gRPC 会自行决定将这个请求投递到哪一个 CQ。</p>
+<p>知道了这一点，我们只需要创建 N 个 CQ 和 N 个线程，每个线程负责一个 CQ，当有新的请求到达一个线程自己的 CQ 时，处理这个请求的资源（<code>CallData</code> 实例）都在这个线程的栈上，不会造成数据竞争。</p>
+<p>这里我们以一个拥有 2 个线程的线程池为例，并且分别创建 2 个 CQ：<code>cq1_</code>、<code>cq2_</code>：</p>
+<pre class="mermaid">sequenceDiagram
+	par thread1
+        ServerImpl.HandleRpcs()-&gt;&gt;cd1_q1: new CallData()
+        cd1_q1-&gt;&gt;cd1_q1.Proceed(): cd1_q1.status_ = CREATE
+        cd1_q1.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd1_q1 to service_
+	loop Forever
+		ServerImpl.HandleRpcs()-&gt;&gt;cq1_.Next(): block here and waiting for request
+		cq1_.Next()-&gt;&gt;ServerImpl.HandleRpcs(): a request coming in, return it
+		ServerImpl.HandleRpcs()-&gt;&gt;cd1_q1.Proceed(): process the request, cd1_q1.status_ = PROCESS
+		cd1_q1.Proceed()-&gt;&gt;cd2_q1: create a new CallData cd2_q1
+        cd2_q1-&gt;&gt;cd2_q1.Proceed(): cd2_q1.status_ = CREATE
+        cd2_q1.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd2_q1 to service_
+		cd1_q1.Proceed()-&gt;&gt;responder_.Finish(): prepare the reply and call the Async Finish()
+		responder_.Finish()-&gt;&gt;cd1_q1.Proceed(): status = FINISH
+        cd1_q1.Proceed()-&gt;&gt;cd1_q1: delete cd1_q1
+	end
+	and thread2
+        ServerImpl.HandleRpcs()-&gt;&gt;cd1_q2: new CallData()
+        cd1_q2-&gt;&gt;cd1_q2.Proceed(): cd1_q2.status_ = CREATE
+        cd1_q2.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd1_q2 to service_
+    end
+    loop Forever
+		ServerImpl.HandleRpcs()-&gt;&gt;cq2_.Next(): block here and waiting for request
+		cq2_.Next()-&gt;&gt;ServerImpl.HandleRpcs(): a request coming in, return it
+		ServerImpl.HandleRpcs()-&gt;&gt;cd1_q2.Proceed(): process the request, cd1_q2.status_ = PROCESS
+		cd1_q2.Proceed()-&gt;&gt;cd2_q2: create a new CallData cd2_q2
+        cd2_q2-&gt;&gt;cd2_q2.Proceed(): cd2_q2.status_ = CREATE
+        cd2_q2.Proceed()-&gt;&gt;service_.RequestSayHello(): register cd2_q2 to service_
+		cd1_q2.Proceed()-&gt;&gt;responder_.Finish(): prepare the reply and call the Async Finish()
+		responder_.Finish()-&gt;&gt;cd1_q2.Proceed(): status = FINISH
+        cd1_q2.Proceed()-&gt;&gt;cd1_q2: delete cd1_q2
+	end
+</pre>
+<p>可以看到，2 个线程分别调用 <code>cq1_.Next()</code> 和 <code>cq2_.Next()</code> 来获取请求，并分别进入各自的工作流程，互不干扰。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="runnable-code-block"><a class="header" href="#runnable-code-block">Runnable code block</a></h1>
 <p>Add <code>run</code> tag to the language declaration of the code block to enable running:</p>
 <pre><code>```cpp, run
 #include &lt;iostream&gt;
@@ -1084,6 +1127,87 @@ std::cout &lt;&lt; "hello from cpp with hidden lines!" &lt;&lt; std::endl;
 <span class="boring">return 0;
 </span><span class="boring">}
 </span></code></pre>
+<h1 id="edition"><a class="header" href="#edition">Edition</a></h1>
+<p>Edition in the language identifier is used to specify which C++ standard you want to use for the compiler (default is C++11).</p>
+<p>You can use:</p>
+<pre><code>```cpp, run, edition17
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+int main() {
+    std::optional&lt;std::string&gt; maybeName;
+    maybeName = "Tom";
+    if (maybeName) {
+        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
+    }
+    return 0;
+}
+```
+</code></pre>
+<p>to specify the standard as C++17, and it will be rendered as:</p>
+<pre><code class="language-cpp  run  edition17">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+int main() {
+    std::optional&lt;std::string&gt; maybeName;
+    maybeName = "Tom";
+    if (maybeName) {
+        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+<p>and if you use C++11, it is expected that you see some compile error:</p>
+<pre><code class="language-cpp  run  edition11">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;optional&gt;
+int main() {
+    std::optional&lt;std::string&gt; maybeName;
+    maybeName = "Tom";
+    if (maybeName) {
+        std::cout &lt;&lt; "Optional has value: " &lt;&lt; *maybeName &lt;&lt; "\n";
+    }
+    return 0;
+}
+</code></pre>
+<h1 id="exception"><a class="header" href="#exception">Exception</a></h1>
+<p>There are some exceptions you might run into:</p>
+<h3 id="timeout"><a class="header" href="#timeout">Timeout</a></h3>
+<p>The time limit is set to 2 seconds of each process.</p>
+<p>So this is ok:</p>
+<pre><code class="language-cpp  run">#include &lt;unistd.h&gt;
+int main() {
+    sleep(1);
+    return 0;
+}
+</code></pre>
+<p>while this is not:</p>
+<pre><code class="language-cpp  run">#include &lt;unistd.h&gt;
+int main() {
+    sleep(2);
+    return 0;
+}
+</code></pre>
+<h3 id="out-of-memory"><a class="header" href="#out-of-memory">Out of memory</a></h3>
+<p>The heap memory limit is set to 20 MiB.</p>
+<p>So this is not ok:</p>
+<pre><code class="language-cpp  run">#include &lt;vector&gt;
+int main() {
+    // int is 4 bytes on the server
+    std::vector&lt;int&gt; vec = std::vector&lt;int&gt;(5 * 1024 * 1024);
+    return 0;
+}
+</code></pre>
+<p>Actually, <code>std::vector&lt;int&gt;(4 * 1024 * 1024);</code> also not working, though I don't know why. I use the <code>setrlimit</code> in the <code>&lt;sys/resource.h&gt;</code> to set the limit, maybe there is some soft limit &amp; hard limit thing?</p>
+<h3 id="privilege-violation"><a class="header" href="#privilege-violation">Privilege violation</a></h3>
+<p>There is a limit to restrict you from directly manipulating the OS.</p>
+<p>This is not ok:</p>
+<pre><code class="language-cpp  run">#include &lt;cstdlib&gt;
+int main() {
+    system("ls");
+    return 0;
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><p>This tutorial is at <a href="https://github.com/rust-lang/mdBook/pull/2286">GitHub</a>, I just copied it, and it works for me.</p>
 <h1 id="custom-playground"><a class="header" href="#custom-playground">Custom Playground</a></h1>
 <p>By default, mdBook supports playground for Rust only.
@@ -1107,91 +1231,91 @@ Example Language Code
 <h3 id="remove-the-access-to-playrust-langorg"><a class="header" href="#remove-the-access-to-playrust-langorg">Remove the access to play.rust-lang.org</a></h3>
 <p>If there are playgrounds in the page, <code>book.js</code> will try to fetch crates list from play.rust-lang.org.
 So you shoud remove the following codes.</p>
-<pre><code class="language-javascript">    var playgrounds = Array.from(document.querySelectorAll(".playground"));
-    if (playgrounds.length &gt; 0) {
-        fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
-            headers: {
-                'Content-Type': "application/json",
-            },
-            method: 'POST',
-            mode: 'cors',
-        })
-        .then(response =&gt; response.json())
-        .then(response =&gt; {
-            // get list of crates available in the rust playground
-            let playground_crates = response.crates.map(item =&gt; item["id"]);
-            playgrounds.forEach(block =&gt; handle_crate_list_update(block, playground_crates));
-        });
-    }
+<pre><code class="language-javascript">var playgrounds = Array.from(document.querySelectorAll(".playground"));
+if (playgrounds.length &gt; 0) {
+    fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
+        headers: {
+            'Content-Type': "application/json",
+        },
+        method: 'POST',
+        mode: 'cors',
+    })
+    .then(response =&gt; response.json())
+    .then(response =&gt; {
+        // get list of crates available in the rust playground
+        let playground_crates = response.crates.map(item =&gt; item["id"]);
+        playgrounds.forEach(block =&gt; handle_crate_list_update(block, playground_crates));
+    });
+}
 </code></pre>
 <h3 id="modify-run_rust_code-function"><a class="header" href="#modify-run_rust_code-function">Modify <code>run_rust_code</code> function</a></h3>
 <p>If a play button is pushed, <code>run_rust_code</code> function will be called to get the result of the playground.
 So you should modify the function for your language.</p>
-<pre><code class="language-javascript">    function run_rust_code(code_block) {
-        var result_block = code_block.querySelector(".result");
-        if (!result_block) {
-            result_block = document.createElement('code');
-            // If the result should be syntax highlighted,
-            // `language-bash` should be modified to the appropriate language.
-            result_block.className = 'result hljs language-bash';
+<pre><code class="language-javascript">function run_rust_code(code_block) {
+    var result_block = code_block.querySelector(".result");
+    if (!result_block) {
+        result_block = document.createElement('code');
+        // If the result should be syntax highlighted,
+        // `language-bash` should be modified to the appropriate language.
+        result_block.className = 'result hljs language-bash';
 
-            code_block.append(result_block);
-        }
-
-        let text = playground_text(code_block);
-
-        // Add function to get result of the playground
-        result_block.innerText = example_language_run(text);
-
-        // If the result should be syntax highlighted, enable the following code.
-        //hljs.highlightBlock(result_block);
+        code_block.append(result_block);
     }
+
+    let text = playground_text(code_block);
+
+    // Add function to get result of the playground
+    result_block.innerText = example_language_run(text);
+
+    // If the result should be syntax highlighted, enable the following code.
+    //hljs.highlightBlock(result_block);
+}
 </code></pre>
 <h3 id="add-code-for-code-block-transformation"><a class="header" href="#add-code-for-code-block-transformation">Add code for code block transformation</a></h3>
 <p>The following code transforms code blocks which have <code>playground</code> option to playground code blocks.</p>
-<pre><code class="language-javascript">    // Add &lt;pre class="playground"&gt; to playground codeblock
-    Array.from(document.querySelectorAll(".playground")).forEach((element) =&gt; {
-        let parent = element.parentNode;
-        let wrapper = document.createElement('pre');
-        wrapper.className = 'playground';
-        element.classList.remove('playground');
-        // set the wrapper as child (instead of the element)
-        parent.replaceChild(wrapper, element);
-        // set element as child of wrapper
-        wrapper.appendChild(element);
-    });
+<pre><code class="language-javascript">// Add &lt;pre class="playground"&gt; to playground codeblock
+Array.from(document.querySelectorAll(".playground")).forEach((element) =&gt; {
+    let parent = element.parentNode;
+    let wrapper = document.createElement('pre');
+    wrapper.className = 'playground';
+    element.classList.remove('playground');
+    // set the wrapper as child (instead of the element)
+    parent.replaceChild(wrapper, element);
+    // set element as child of wrapper
+    wrapper.appendChild(element);
+});
 </code></pre>
 <p>This should be executed before other processes of <code>codeSnippets</code> function.
 For example, the code should be inserted to the following point.</p>
-<pre><code class="language-javascript">    // Insert the above code
+<pre><code class="language-javascript">// Insert the above code
 
-    // Syntax highlighting Configuration
-    hljs.configure({
-        tabReplace: '    ', // 4 spaces
-        languages: [],      // Languages used for auto-detection
-    });
+// Syntax highlighting Configuration
+hljs.configure({
+    tabReplace: '    ', // 4 spaces
+    languages: [],      // Languages used for auto-detection
+});
 
-    let code_nodes = Array
-        .from(document.querySelectorAll('code'))
-        // Don't highlight `inline code` blocks in headers.
-        .filter(function (node) {return !node.parentElement.classList.contains("header"); });
+let code_nodes = Array
+    .from(document.querySelectorAll('code'))
+    // Don't highlight `inline code` blocks in headers.
+    .filter(function (node) {return !node.parentElement.classList.contains("header"); });
 </code></pre>
 <h3 id="tweak-for-editable-code-blocks"><a class="header" href="#tweak-for-editable-code-blocks">Tweak for editable code blocks</a></h3>
 <p>If the code block is editable, the syntax highlight is executed by editor.
 So the normal highlight mechanism should be disabled to avoid conflict.</p>
 <p>This is achieved by the following code.</p>
-<pre><code class="language-javascript">        // language-rust class needs to be removed for editable
-        // blocks or highlightjs will capture events
-        code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
-            .forEach(function (block) { block.classList.remove('language-rust'); });
+<pre><code class="language-javascript">// language-rust class needs to be removed for editable
+// blocks or highlightjs will capture events
+code_nodes
+    .filter(function (node) {return node.classList.contains("editable"); })
+    .forEach(function (block) { block.classList.remove('language-rust'); });
 </code></pre>
 <p>The language name shoud be changed to <code>language-example</code>.</p>
-<pre><code class="language-javascript">        // language-rust class needs to be removed for editable
-        // blocks or highlightjs will capture events
-        code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
-            .forEach(function (block) { block.classList.remove('language-example'); });
+<pre><code class="language-javascript">// language-rust class needs to be removed for editable
+// blocks or highlightjs will capture events
+code_nodes
+    .filter(function (node) {return node.classList.contains("editable"); })
+    .forEach(function (block) { block.classList.remove('language-example'); });
 </code></pre>
 <h2 id="prepare-syntax-highlighting"><a class="header" href="#prepare-syntax-highlighting">Prepare syntax highlighting</a></h2>
 <p><a href="https://highlightjs.org">highlight.js</a> and <a href="https://ace.c9.io">Ace</a> are used for syntax highlighting.
@@ -1210,15 +1334,15 @@ So the <code>build/highlight.min.js</code> should be moved to <code>theme/highli
 This script can't be customized through theme.
 So you should copy <code>editor.js</code> from the generated book directory to the project root.
 The copied file should be modified like below:</p>
-<pre><code class="language-javascript">        //editor.getSession().setMode("ace/mode/rust");
-        editor.getSession().setMode("ace/mode/example");
+<pre><code class="language-javascript">//editor.getSession().setMode("ace/mode/rust");
+editor.getSession().setMode("ace/mode/example");
 </code></pre>
 <h2 id="set-additional-js"><a class="header" href="#set-additional-js">Set additional-js</a></h2>
 <p>You should add <code>editor.js</code> and <code>mode-example.js</code> to <code>additional-js</code> field of <code>book.toml</code>.</p>
 <pre><code class="language-toml">[output.html]
 additional-js = [
-  "mode-example.js",
-  "editor.js",
+    "mode-example.js",
+    "editor.js",
 ]
 </code></pre>
 <h2 id="directory-structure"><a class="header" href="#directory-structure">Directory structure</a></h2>
@@ -1610,7 +1734,7 @@ public licenses.</p>
                 }
             };
 
-            window.onbeforeunload = function() {
+            window.onbeforeunload = function () {
                 socket.close();
             }
         </script>
@@ -1626,35 +1750,40 @@ public licenses.</p>
 
         <script src="js/init.js"></script>
 
-        <script src="ace.js"></script>
-        <script src="editor.js"></script>
-        <script src="mode-rust.js"></script>
+        <script src="js/mermaid-init.js"></script>
+        <script src="js/mermaid.min.js"></script>
+
+        <script src="js/ace.js"></script>
+        <script src="js/ext-language_tools.js"></script>
+        <script src="js/editor.js"></script>
+
+        <script src="js/mode-rust.js"></script>
+        <script src="js/mode-c_cpp.js"></script>
+
         <script src="theme-dawn.js"></script>
         <script src="theme-tomorrow_night.js"></script>
 
-        <!-- Custom JS scripts -->
-        <script src="js/mermaid.min.js"></script>
-        <script src="js/mermaid-init.js"></script>
-        <script src="js/mode-c_cpp.js"></script>
-        <script src="js/editor.js"></script>
-        <script src="js/init.js"></script>
 
         <script src="elasticlunr.min.js"></script>
         <script src="mark.min.js"></script>
         <script src="searcher.js"></script>
 
         <script src="clipboard.min.js"></script>
+
         <script src="highlight.js"></script>
+        <script src="js/all-languages.min.js"></script> 
+
         <script src="book.js"></script>
 
         <script>
-        window.addEventListener('load', function() {
-            MathJax.Hub.Register.StartupHook('End', function() {
-                window.setTimeout(window.print, 100);
+            window.addEventListener('load', function () {
+                MathJax.Hub.Register.StartupHook('End', function () {
+                    window.setTimeout(window.print, 100);
+                });
             });
-        });
         </script>
 
     </div>
-    </body>
+</body>
+
 </html>

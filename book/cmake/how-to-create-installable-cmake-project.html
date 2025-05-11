@@ -1,48 +1,51 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>如何创建一个可安装的 CMake 包 - Net Nook</title>
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>如何创建一个可安装的 CMake 包 - Net Nook</title>
 
 
-        <!-- Custom HTML head -->
+    <!-- Custom HTML head -->
 
-        <meta name="description" content="A collection of notes and resources in learning and building.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="A collection of notes and resources in learning and building.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+    <link rel="icon" href="../favicon.svg">
+    <link rel="shortcut icon" href="../favicon.png">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/chrome.css">
+    <link rel="stylesheet" href="../css/print.css" media="print">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../fonts/fonts.css">
 
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+    <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+    <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
-        <!-- Custom theme stylesheets -->
+    <!-- Custom theme stylesheets -->
 
-        <!-- MathJax -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax -->
+    <script async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-        <!-- Provide site root and default themes to javascript -->
-        <script>
-            const path_to_root = "../";
-            const default_light_theme = "light";
-            const default_dark_theme = "navy";
-        </script>
-        <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
-    </head>
-    <body>
+    <!-- Provide site root and default themes to javascript -->
+    <script>
+        const path_to_root = "../";
+        const default_light_theme = "light";
+        const default_dark_theme = "navy";
+    </script>
+    <!-- Start loading toc.js asap -->
+    <script src="../toc.js"></script>
+</head>
+
+<body>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -64,7 +67,7 @@
         <script>
             const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
             let theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
             html.classList.remove('light')
@@ -79,7 +82,7 @@
             let sidebar = null;
             const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
@@ -106,10 +109,14 @@
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor"
+                            title="Toggle Table of Contents" aria-label="Toggle Table of Contents"
+                            aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
@@ -120,7 +127,9 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -140,7 +149,8 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -153,7 +163,7 @@
                 <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
@@ -186,7 +196,7 @@
 <h3 id="什么时候设置和使用"><a class="header" href="#什么时候设置和使用">什么时候设置和使用？</a></h3>
 <h5 id="在命令行中设置"><a class="header" href="#在命令行中设置">在命令行中设置</a></h5>
 <p>通常在 CMake <strong>配置阶段</strong>（运行 <code>cmake ...</code> 命令时）通过命令行参数 <code>-DCMAKE_INSTALL_PREFIX=&lt;路径&gt;</code> 来设置。消费者可以指定他们希望软件安装到哪个目录下。 例如：</p>
-<pre><code class="language-shell">cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject &lt;path/to/CMakeLists.txt&gt;
+<pre><code class="language-bash">cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject &lt;path/to/CMakeLists.txt&gt;
 </code></pre>
 <p>如果在配置时没有显式指定，CMake 会有一个默认值（通常是 <code>/usr/local</code> 或 <code>/usr</code>，取决于系统和 CMake 版本）。</p>
 <h5 id="cmake-自动使用"><a class="header" href="#cmake-自动使用">CMake 自动使用</a></h5>
@@ -194,7 +204,7 @@
 <p>在执行 <code>make install</code> 或 <code>cmake --install</code> 命令时，CMake 会读取这些 <code>install()</code> 定义，并将相应的文件复制到 <code>CMAKE_INSTALL_PREFIX</code> 指定的路径下的正确位置。</p>
 <h2 id="cmake_prefix_path-标志"><a class="header" href="#cmake_prefix_path-标志">CMAKE_PREFIX_PATH 标志</a></h2>
 <p>消费者在自己的 <code>CMakeLists.txt</code> 中加入：</p>
-<pre><code class="language-shell">list(APPEND CMAKE_PREFIX_PATH absolute/path/to/&lt;Package&gt;Config.cmake)
+<pre><code class="language-cmake">list(APPEND CMAKE_PREFIX_PATH absolute/path/to/&lt;Package&gt;Config.cmake)
 </code></pre>
 <p>然后调用 <code>find_package(&lt;Package&gt; REQUIRED)</code> 就会在上述路径中搜索 <code>&lt;Package&gt;Config.cmake</code> 文件，该文件会收集包的必要信息。</p>
 <h2 id="install-命令"><a class="header" href="#install-命令">install() 命令</a></h2>
@@ -218,7 +228,7 @@ install(DIRECTORY conf/ DESTINATION share/myproject/conf)
 </code></pre>
 <p>这个用于导出 CMake 目标信息，生成 <code>.cmake</code> 文件（如 <code>*Config.cmake</code>），使得其他 CMake 项目可以通过 <code>find_package()</code> 来找到并使用该项目。</p>
 <p>这些导出的文件通常安装在：</p>
-<pre><code>${CMAKE_INSTALL_PREFIX}/lib/cmake/&lt;ProjectName&gt;
+<pre><code class="language-cmake">${CMAKE_INSTALL_PREFIX}/lib/cmake/&lt;ProjectName&gt;
 ${CMAKE_INSTALL_PREFIX}/share/cmake/&lt;ProjectName&gt;
 </code></pre>
 <h3 id="安装命令"><a class="header" href="#安装命令">安装命令</a></h3>
@@ -395,7 +405,7 @@ install(FILES
 </code></pre>
 <h3 id="cmake-模板文件"><a class="header" href="#cmake-模板文件">CMake 模板文件</a></h3>
 <p>此外，我们还需要为 <code>AppleConfig.cmake</code> 写一个模板文件 <code>AppleConfig.cmake.in</code>：</p>
-<pre><code class="language-shell">@PACKAGE_INIT@
+<pre><code class="language-cmake">@PACKAGE_INIT@
 
 # 查找依赖
 include(CMakeFindDependencyMacro) # find_dependency() 宏需要这个模块
@@ -421,13 +431,13 @@ set(@PROJECT_NAME@_FOUND TRUE)
 </blockquote>
 <h3 id="构建"><a class="header" href="#构建">构建</a></h3>
 <p>在 <code>Apple</code> 目录下执行（这里路径替换为你的 <code>install</code> 目录绝对路径）：</p>
-<pre><code class="language-shell">rm -rf build/
+<pre><code class="language-bash">rm -rf build/
 mkdir build &amp;&amp; cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 </code></pre>
 <h3 id="安装"><a class="header" href="#安装">安装</a></h3>
 <p>在 <code>Apple/build</code> 目录下执行：</p>
-<pre><code class="language-shell">cmake --install .
+<pre><code class="language-bash">cmake --install .
 </code></pre>
 <p>安装完成后，我们应该能看到：</p>
 <pre><code>Apple/install/
@@ -450,7 +460,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 </ul>
 <h3 id="消费者怎么使用-apple-库"><a class="header" href="#消费者怎么使用-apple-库">消费者怎么使用 Apple 库</a></h3>
 <p>我们创建一个 <code>Peach</code> 目录，并写入以下文件：</p>
-<pre><code class="language-shell">Peach/
+<pre><code>Peach/
 ├── CMakeLists.txt
 └── test
     ├── CMakeLists.txt
@@ -458,7 +468,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 </code></pre>
 <p>其中 <code>main.cc</code> 和 Apple 中的 <code>main.cc</code> 完全一样。</p>
 <p>主目录、<code>test</code> 目录下的 <code>CMakeLists.txt</code>：</p>
-<pre><code class="language-shell"># ./CMakeLists.txt
+<pre><code class="language-cmake"># ./CMakeLists.txt
 cmake_minimum_required(VERSION 3.16)
 project(Peach VERSION 0.1.0)
 
@@ -474,12 +484,12 @@ find_package(Apple REQUIRED)
 
 add_subdirectory(test)
 </code></pre>
-<pre><code class="language-shell"># test/CMakeLists.txt
+<pre><code class="language-cmake"># test/CMakeLists.txt
 add_executable(main main.cc)
 target_link_libraries(main PRIVATE mylib::Apple)
 </code></pre>
 <p>OK，现在我们创建并进入 <code>Peach/build</code> 目录然后执行：</p>
-<pre><code class="language-shell">cmake ..
+<pre><code class="language-bash">cmake ..
 make # 成功输出可执行文件 main
 </code></pre>
 <h3 id="总结"><a class="header" href="#总结">总结</a></h3>
@@ -503,13 +513,15 @@ make # 成功输出可执行文件 main
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cmake/cmake-module.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
+                        <a rel="prev" href="../cmake/cmake-module.html" class="mobile-nav-chapters previous"
+                            title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
 
-                            <a rel="next prefetch" href="../cpp-playground.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
+                        <a rel="next prefetch" href="../grpc/grpc.html" class="mobile-nav-chapters next"
+                            title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -517,13 +529,15 @@ make # 成功输出可执行文件 main
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cmake/cmake-module.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a rel="prev" href="../cmake/cmake-module.html" class="nav-chapters previous" title="Previous chapter"
+                    aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
 
-                    <a rel="next prefetch" href="../cpp-playground.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
+                <a rel="next prefetch" href="../grpc/grpc.html" class="nav-chapters next" title="Next chapter"
+                    aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             </nav>
 
         </div>
@@ -540,7 +554,7 @@ make # 成功输出可执行文件 main
                 }
             };
 
-            window.onbeforeunload = function() {
+            window.onbeforeunload = function () {
                 socket.close();
             }
         </script>
@@ -556,28 +570,33 @@ make # 成功输出可执行文件 main
 
         <script src="../js/init.js"></script>
 
-        <script src="../ace.js"></script>
-        <script src="../editor.js"></script>
-        <script src="../mode-rust.js"></script>
+        <script src="../js/mermaid-init.js"></script>
+        <script src="../js/mermaid.min.js"></script>
+
+        <script src="../js/ace.js"></script>
+        <script src="../js/ext-language_tools.js"></script>
+        <script src="../js/editor.js"></script>
+
+        <script src="../js/mode-rust.js"></script>
+        <script src="../js/mode-c_cpp.js"></script>
+
         <script src="../theme-dawn.js"></script>
         <script src="../theme-tomorrow_night.js"></script>
 
-        <!-- Custom JS scripts -->
-        <script src="../js/mermaid.min.js"></script>
-        <script src="../js/mermaid-init.js"></script>
-        <script src="../js/mode-c_cpp.js"></script>
-        <script src="../js/editor.js"></script>
-        <script src="../js/init.js"></script>
 
         <script src="../elasticlunr.min.js"></script>
         <script src="../mark.min.js"></script>
         <script src="../searcher.js"></script>
 
         <script src="../clipboard.min.js"></script>
+
         <script src="../highlight.js"></script>
+        <script src="../js/all-languages.min.js"></script> 
+
         <script src="../book.js"></script>
 
 
     </div>
-    </body>
+</body>
+
 </html>

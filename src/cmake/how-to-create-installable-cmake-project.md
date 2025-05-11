@@ -34,7 +34,7 @@ graph TD
 
 通常在 CMake **配置阶段**（运行 `cmake ...` 命令时）通过命令行参数 `-DCMAKE_INSTALL_PREFIX=<路径>` 来设置。消费者可以指定他们希望软件安装到哪个目录下。 例如：
 
-```shell
+```bash
 cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject <path/to/CMakeLists.txt>
 ```
 
@@ -50,7 +50,7 @@ cmake -DCMAKE_INSTALL_PREFIX=/opt/myproject <path/to/CMakeLists.txt>
 
 消费者在自己的 `CMakeLists.txt` 中加入：
 
-```shell
+```cmake
 list(APPEND CMAKE_PREFIX_PATH absolute/path/to/<Package>Config.cmake)
 ```
 
@@ -88,7 +88,7 @@ install(EXPORT <export-name> DESTINATION <相对路径> ...)
 
 这些导出的文件通常安装在：
 
-```
+```cmake
 ${CMAKE_INSTALL_PREFIX}/lib/cmake/<ProjectName>
 ${CMAKE_INSTALL_PREFIX}/share/cmake/<ProjectName>
 ```
@@ -290,7 +290,7 @@ install(FILES
 
 此外，我们还需要为 `AppleConfig.cmake` 写一个模板文件 `AppleConfig.cmake.in`：
 
-```shell
+```cmake
 @PACKAGE_INIT@
 
 # 查找依赖
@@ -320,7 +320,7 @@ set(@PROJECT_NAME@_FOUND TRUE)
 
 在 `Apple` 目录下执行（这里路径替换为你的 `install` 目录绝对路径）：
 
-```shell
+```bash
 rm -rf build/
 mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
@@ -330,7 +330,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/Apple/install
 
 在 `Apple/build` 目录下执行：
 
-```shell
+```bash
 cmake --install .
 ```
 
@@ -360,7 +360,7 @@ Apple/install/
 
 我们创建一个 `Peach` 目录，并写入以下文件：
 
-```shell
+```
 Peach/
 ├── CMakeLists.txt
 └── test
@@ -372,7 +372,7 @@ Peach/
 
 主目录、`test` 目录下的 `CMakeLists.txt`：
 
-```shell
+```cmake
 # ./CMakeLists.txt
 cmake_minimum_required(VERSION 3.16)
 project(Peach VERSION 0.1.0)
@@ -390,7 +390,7 @@ find_package(Apple REQUIRED)
 add_subdirectory(test)
 ```
 
-```shell
+```cmake
 # test/CMakeLists.txt
 add_executable(main main.cc)
 target_link_libraries(main PRIVATE mylib::Apple)
@@ -398,7 +398,7 @@ target_link_libraries(main PRIVATE mylib::Apple)
 
 OK，现在我们创建并进入 `Peach/build` 目录然后执行：
 
-```shell
+```bash
 cmake ..
 make # 成功输出可执行文件 main
 ```

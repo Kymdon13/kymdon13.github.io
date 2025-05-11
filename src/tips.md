@@ -1,3 +1,55 @@
+# ace.js
+
+If you want to add a new language in the backend and get the auto completion feature for this language, you just have to copy the `mode-<language>.js` file from `ace/src-min-nonconflict` (download it yourself on GitHub for the build version, I'm using `ace-builds-1.5.0`) to `js/` and add it to the `book.toml`:
+
+```toml
+additional-js = [
+    "js/mode-<language>.js",
+]
+```
+
+and `index.hbs`:
+
+```handlebars
+<script src="{{ resource "js/mode-<language>.js" }}"></script>
+```
+
+> Note that you must remove the original code in `index.hbs` because we are adding them all by hand:
+> ```handlebars
+> {{#each additional_js}}
+> <script src="{{ resource this }}"></script>
+> {{/each}}
+> ```
+
+# highlight.js
+
+For language support add the `all-languages.min.js` to the `js/`, `book.toml` and `index.hbs`.
+
+Tht `all-languages.min.js` is obtained by concat all js in `https://github.com/highlightjs/cdn-release/tree/11.11.1/build/languages`:
+
+```bash
+cat $(find ./languages -maxdepth 1 -type f ! -name 'all-languages.min.js') > all-languages.min.js
+```
+
+### Some examples
+
+bash:
+
+```bash
+some=hhh
+if [ -n dir ]; do
+    echo ${some}
+fi
+```
+
+python:
+
+```python
+for i in range(1,20):
+    while i < 10:
+        print(123)
+```
+
 # mdBook features
 
 ### classList of code block

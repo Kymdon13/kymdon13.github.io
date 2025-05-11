@@ -14,6 +14,9 @@
     - [CMake 模块和包](./cmake/cmake-module.md)
     - [如何创建一个可安装的 CMake 包](./cmake/how-to-create-installable-cmake-project.md)
 
+- [gRPC](./grpc/grpc.md)
+    - [gRPC 中的 CompletionQueue 模型](./grpc/cq-model.md)
+
 - [CPP Playground](./cpp-playground.md)
 
 - [Custom Playground](./custom-playground.md)

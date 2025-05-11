@@ -37,22 +37,22 @@ If there are playgrounds in the page, `book.js` will try to fetch crates list fr
 So you shoud remove the following codes.
 
 ```javascript
-    var playgrounds = Array.from(document.querySelectorAll(".playground"));
-    if (playgrounds.length > 0) {
-        fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
-            headers: {
-                'Content-Type': "application/json",
-            },
-            method: 'POST',
-            mode: 'cors',
-        })
-        .then(response => response.json())
-        .then(response => {
-            // get list of crates available in the rust playground
-            let playground_crates = response.crates.map(item => item["id"]);
-            playgrounds.forEach(block => handle_crate_list_update(block, playground_crates));
-        });
-    }
+var playgrounds = Array.from(document.querySelectorAll(".playground"));
+if (playgrounds.length > 0) {
+    fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
+        headers: {
+            'Content-Type': "application/json",
+        },
+        method: 'POST',
+        mode: 'cors',
+    })
+    .then(response => response.json())
+    .then(response => {
+        // get list of crates available in the rust playground
+        let playground_crates = response.crates.map(item => item["id"]);
+        playgrounds.forEach(block => handle_crate_list_update(block, playground_crates));
+    });
+}
 ```
 
 ### Modify `run_rust_code` function
@@ -61,25 +61,25 @@ If a play button is pushed, `run_rust_code` function will be called to get the r
 So you should modify the function for your language.
 
 ```javascript
-    function run_rust_code(code_block) {
-        var result_block = code_block.querySelector(".result");
-        if (!result_block) {
-            result_block = document.createElement('code');
-            // If the result should be syntax highlighted,
-            // `language-bash` should be modified to the appropriate language.
-            result_block.className = 'result hljs language-bash';
+function run_rust_code(code_block) {
+    var result_block = code_block.querySelector(".result");
+    if (!result_block) {
+        result_block = document.createElement('code');
+        // If the result should be syntax highlighted,
+        // `language-bash` should be modified to the appropriate language.
+        result_block.className = 'result hljs language-bash';
 
-            code_block.append(result_block);
-        }
-
-        let text = playground_text(code_block);
-
-        // Add function to get result of the playground
-        result_block.innerText = example_language_run(text);
-
-        // If the result should be syntax highlighted, enable the following code.
-        //hljs.highlightBlock(result_block);
+        code_block.append(result_block);
     }
+
+    let text = playground_text(code_block);
+
+    // Add function to get result of the playground
+    result_block.innerText = example_language_run(text);
+
+    // If the result should be syntax highlighted, enable the following code.
+    //hljs.highlightBlock(result_block);
+}
 ```
 
 ### Add code for code block transformation
@@ -87,35 +87,35 @@ So you should modify the function for your language.
 The following code transforms code blocks which have `playground` option to playground code blocks.
 
 ```javascript
-    // Add <pre class="playground"> to playground codeblock
-    Array.from(document.querySelectorAll(".playground")).forEach((element) => {
-        let parent = element.parentNode;
-        let wrapper = document.createElement('pre');
-        wrapper.className = 'playground';
-        element.classList.remove('playground');
-        // set the wrapper as child (instead of the element)
-        parent.replaceChild(wrapper, element);
-        // set element as child of wrapper
-        wrapper.appendChild(element);
-    });
+// Add <pre class="playground"> to playground codeblock
+Array.from(document.querySelectorAll(".playground")).forEach((element) => {
+    let parent = element.parentNode;
+    let wrapper = document.createElement('pre');
+    wrapper.className = 'playground';
+    element.classList.remove('playground');
+    // set the wrapper as child (instead of the element)
+    parent.replaceChild(wrapper, element);
+    // set element as child of wrapper
+    wrapper.appendChild(element);
+});
 ```
 
 This should be executed before other processes of `codeSnippets` function.
 For example, the code should be inserted to the following point.
 
 ```javascript
-    // Insert the above code
+// Insert the above code
 
-    // Syntax highlighting Configuration
-    hljs.configure({
-        tabReplace: '    ', // 4 spaces
-        languages: [],      // Languages used for auto-detection
-    });
+// Syntax highlighting Configuration
+hljs.configure({
+    tabReplace: '    ', // 4 spaces
+    languages: [],      // Languages used for auto-detection
+});
 
-    let code_nodes = Array
-        .from(document.querySelectorAll('code'))
-        // Don't highlight `inline code` blocks in headers.
-        .filter(function (node) {return !node.parentElement.classList.contains("header"); });
+let code_nodes = Array
+    .from(document.querySelectorAll('code'))
+    // Don't highlight `inline code` blocks in headers.
+    .filter(function (node) {return !node.parentElement.classList.contains("header"); });
 ```
 
 ### Tweak for editable code blocks
@@ -126,21 +126,21 @@ So the normal highlight mechanism should be disabled to avoid conflict.
 This is achieved by the following code.
 
 ```javascript
-        // language-rust class needs to be removed for editable
-        // blocks or highlightjs will capture events
-        code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
-            .forEach(function (block) { block.classList.remove('language-rust'); });
+// language-rust class needs to be removed for editable
+// blocks or highlightjs will capture events
+code_nodes
+    .filter(function (node) {return node.classList.contains("editable"); })
+    .forEach(function (block) { block.classList.remove('language-rust'); });
 ```
 
 The language name shoud be changed to `language-example`.
 
 ```javascript
-        // language-rust class needs to be removed for editable
-        // blocks or highlightjs will capture events
-        code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
-            .forEach(function (block) { block.classList.remove('language-example'); });
+// language-rust class needs to be removed for editable
+// blocks or highlightjs will capture events
+code_nodes
+    .filter(function (node) {return node.classList.contains("editable"); })
+    .forEach(function (block) { block.classList.remove('language-example'); });
 ```
 
 ## Prepare syntax highlighting
@@ -166,8 +166,8 @@ So you should copy `editor.js` from the generated book directory to the project 
 The copied file should be modified like below:
 
 ```javascript
-        //editor.getSession().setMode("ace/mode/rust");
-        editor.getSession().setMode("ace/mode/example");
+//editor.getSession().setMode("ace/mode/rust");
+editor.getSession().setMode("ace/mode/example");
 ```
 
 ## Set additional-js
@@ -177,8 +177,8 @@ You should add `editor.js` and `mode-example.js` to `additional-js` field of `bo
 ```toml
 [output.html]
 additional-js = [
-  "mode-example.js",
-  "editor.js",
+    "mode-example.js",
+    "editor.js",
 ]
 ```
 

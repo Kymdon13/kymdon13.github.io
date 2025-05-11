@@ -1,48 +1,51 @@
 <!DOCTYPE HTML>
 <html lang="en" class="light sidebar-visible" dir="ltr">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Custom Playground - Net Nook</title>
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Custom Playground - Net Nook</title>
 
 
-        <!-- Custom HTML head -->
+    <!-- Custom HTML head -->
 
-        <meta name="description" content="A collection of notes and resources in learning and building.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="A collection of notes and resources in learning and building.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+    <link rel="icon" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="fonts/fonts.css">
 
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" id="highlight-css" href="highlight.css">
+    <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+    <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
-        <!-- Custom theme stylesheets -->
+    <!-- Custom theme stylesheets -->
 
-        <!-- MathJax -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax -->
+    <script async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-        <!-- Provide site root and default themes to javascript -->
-        <script>
-            const path_to_root = "";
-            const default_light_theme = "light";
-            const default_dark_theme = "navy";
-        </script>
-        <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
-    </head>
-    <body>
+    <!-- Provide site root and default themes to javascript -->
+    <script>
+        const path_to_root = "";
+        const default_light_theme = "light";
+        const default_dark_theme = "navy";
+    </script>
+    <!-- Start loading toc.js asap -->
+    <script src="toc.js"></script>
+</head>
+
+<body>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -64,7 +67,7 @@
         <script>
             const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
             let theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
             html.classList.remove('light')
@@ -79,7 +82,7 @@
             let sidebar = null;
             const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
@@ -106,10 +109,14 @@
                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor"
+                            title="Toggle Table of Contents" aria-label="Toggle Table of Contents"
+                            aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
@@ -120,7 +127,9 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -140,7 +149,8 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -153,7 +163,7 @@
                 <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
@@ -183,91 +193,91 @@ Example Language Code
 <h3 id="remove-the-access-to-playrust-langorg"><a class="header" href="#remove-the-access-to-playrust-langorg">Remove the access to play.rust-lang.org</a></h3>
 <p>If there are playgrounds in the page, <code>book.js</code> will try to fetch crates list from play.rust-lang.org.
 So you shoud remove the following codes.</p>
-<pre><code class="language-javascript">    var playgrounds = Array.from(document.querySelectorAll(".playground"));
-    if (playgrounds.length &gt; 0) {
-        fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
-            headers: {
-                'Content-Type': "application/json",
-            },
-            method: 'POST',
-            mode: 'cors',
-        })
-        .then(response =&gt; response.json())
-        .then(response =&gt; {
-            // get list of crates available in the rust playground
-            let playground_crates = response.crates.map(item =&gt; item["id"]);
-            playgrounds.forEach(block =&gt; handle_crate_list_update(block, playground_crates));
-        });
-    }
+<pre><code class="language-javascript">var playgrounds = Array.from(document.querySelectorAll(".playground"));
+if (playgrounds.length &gt; 0) {
+    fetch_with_timeout("https://play.rust-lang.org/meta/crates", {
+        headers: {
+            'Content-Type': "application/json",
+        },
+        method: 'POST',
+        mode: 'cors',
+    })
+    .then(response =&gt; response.json())
+    .then(response =&gt; {
+        // get list of crates available in the rust playground
+        let playground_crates = response.crates.map(item =&gt; item["id"]);
+        playgrounds.forEach(block =&gt; handle_crate_list_update(block, playground_crates));
+    });
+}
 </code></pre>
 <h3 id="modify-run_rust_code-function"><a class="header" href="#modify-run_rust_code-function">Modify <code>run_rust_code</code> function</a></h3>
 <p>If a play button is pushed, <code>run_rust_code</code> function will be called to get the result of the playground.
 So you should modify the function for your language.</p>
-<pre><code class="language-javascript">    function run_rust_code(code_block) {
-        var result_block = code_block.querySelector(".result");
-        if (!result_block) {
-            result_block = document.createElement('code');
-            // If the result should be syntax highlighted,
-            // `language-bash` should be modified to the appropriate language.
-            result_block.className = 'result hljs language-bash';
+<pre><code class="language-javascript">function run_rust_code(code_block) {
+    var result_block = code_block.querySelector(".result");
+    if (!result_block) {
+        result_block = document.createElement('code');
+        // If the result should be syntax highlighted,
+        // `language-bash` should be modified to the appropriate language.
+        result_block.className = 'result hljs language-bash';
 
-            code_block.append(result_block);
-        }
-
-        let text = playground_text(code_block);
-
-        // Add function to get result of the playground
-        result_block.innerText = example_language_run(text);
-
-        // If the result should be syntax highlighted, enable the following code.
-        //hljs.highlightBlock(result_block);
+        code_block.append(result_block);
     }
+
+    let text = playground_text(code_block);
+
+    // Add function to get result of the playground
+    result_block.innerText = example_language_run(text);
+
+    // If the result should be syntax highlighted, enable the following code.
+    //hljs.highlightBlock(result_block);
+}
 </code></pre>
 <h3 id="add-code-for-code-block-transformation"><a class="header" href="#add-code-for-code-block-transformation">Add code for code block transformation</a></h3>
 <p>The following code transforms code blocks which have <code>playground</code> option to playground code blocks.</p>
-<pre><code class="language-javascript">    // Add &lt;pre class="playground"&gt; to playground codeblock
-    Array.from(document.querySelectorAll(".playground")).forEach((element) =&gt; {
-        let parent = element.parentNode;
-        let wrapper = document.createElement('pre');
-        wrapper.className = 'playground';
-        element.classList.remove('playground');
-        // set the wrapper as child (instead of the element)
-        parent.replaceChild(wrapper, element);
-        // set element as child of wrapper
-        wrapper.appendChild(element);
-    });
+<pre><code class="language-javascript">// Add &lt;pre class="playground"&gt; to playground codeblock
+Array.from(document.querySelectorAll(".playground")).forEach((element) =&gt; {
+    let parent = element.parentNode;
+    let wrapper = document.createElement('pre');
+    wrapper.className = 'playground';
+    element.classList.remove('playground');
+    // set the wrapper as child (instead of the element)
+    parent.replaceChild(wrapper, element);
+    // set element as child of wrapper
+    wrapper.appendChild(element);
+});
 </code></pre>
 <p>This should be executed before other processes of <code>codeSnippets</code> function.
 For example, the code should be inserted to the following point.</p>
-<pre><code class="language-javascript">    // Insert the above code
+<pre><code class="language-javascript">// Insert the above code
 
-    // Syntax highlighting Configuration
-    hljs.configure({
-        tabReplace: '    ', // 4 spaces
-        languages: [],      // Languages used for auto-detection
-    });
+// Syntax highlighting Configuration
+hljs.configure({
+    tabReplace: '    ', // 4 spaces
+    languages: [],      // Languages used for auto-detection
+});
 
-    let code_nodes = Array
-        .from(document.querySelectorAll('code'))
-        // Don't highlight `inline code` blocks in headers.
-        .filter(function (node) {return !node.parentElement.classList.contains("header"); });
+let code_nodes = Array
+    .from(document.querySelectorAll('code'))
+    // Don't highlight `inline code` blocks in headers.
+    .filter(function (node) {return !node.parentElement.classList.contains("header"); });
 </code></pre>
 <h3 id="tweak-for-editable-code-blocks"><a class="header" href="#tweak-for-editable-code-blocks">Tweak for editable code blocks</a></h3>
 <p>If the code block is editable, the syntax highlight is executed by editor.
 So the normal highlight mechanism should be disabled to avoid conflict.</p>
 <p>This is achieved by the following code.</p>
-<pre><code class="language-javascript">        // language-rust class needs to be removed for editable
-        // blocks or highlightjs will capture events
-        code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
-            .forEach(function (block) { block.classList.remove('language-rust'); });
+<pre><code class="language-javascript">// language-rust class needs to be removed for editable
+// blocks or highlightjs will capture events
+code_nodes
+    .filter(function (node) {return node.classList.contains("editable"); })
+    .forEach(function (block) { block.classList.remove('language-rust'); });
 </code></pre>
 <p>The language name shoud be changed to <code>language-example</code>.</p>
-<pre><code class="language-javascript">        // language-rust class needs to be removed for editable
-        // blocks or highlightjs will capture events
-        code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
-            .forEach(function (block) { block.classList.remove('language-example'); });
+<pre><code class="language-javascript">// language-rust class needs to be removed for editable
+// blocks or highlightjs will capture events
+code_nodes
+    .filter(function (node) {return node.classList.contains("editable"); })
+    .forEach(function (block) { block.classList.remove('language-example'); });
 </code></pre>
 <h2 id="prepare-syntax-highlighting"><a class="header" href="#prepare-syntax-highlighting">Prepare syntax highlighting</a></h2>
 <p><a href="https://highlightjs.org">highlight.js</a> and <a href="https://ace.c9.io">Ace</a> are used for syntax highlighting.
@@ -286,15 +296,15 @@ So the <code>build/highlight.min.js</code> should be moved to <code>theme/highli
 This script can't be customized through theme.
 So you should copy <code>editor.js</code> from the generated book directory to the project root.
 The copied file should be modified like below:</p>
-<pre><code class="language-javascript">        //editor.getSession().setMode("ace/mode/rust");
-        editor.getSession().setMode("ace/mode/example");
+<pre><code class="language-javascript">//editor.getSession().setMode("ace/mode/rust");
+editor.getSession().setMode("ace/mode/example");
 </code></pre>
 <h2 id="set-additional-js"><a class="header" href="#set-additional-js">Set additional-js</a></h2>
 <p>You should add <code>editor.js</code> and <code>mode-example.js</code> to <code>additional-js</code> field of <code>book.toml</code>.</p>
 <pre><code class="language-toml">[output.html]
 additional-js = [
-  "mode-example.js",
-  "editor.js",
+    "mode-example.js",
+    "editor.js",
 ]
 </code></pre>
 <h2 id="directory-structure"><a class="header" href="#directory-structure">Directory structure</a></h2>
@@ -313,13 +323,15 @@ additional-js = [
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="cpp-playground.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
+                        <a rel="prev" href="cpp-playground.html" class="mobile-nav-chapters previous"
+                            title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
 
-                            <a rel="next prefetch" href="license.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
+                        <a rel="next prefetch" href="license.html" class="mobile-nav-chapters next"
+                            title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -327,13 +339,15 @@ additional-js = [
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="cpp-playground.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a rel="prev" href="cpp-playground.html" class="nav-chapters previous" title="Previous chapter"
+                    aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
 
-                    <a rel="next prefetch" href="license.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
+                <a rel="next prefetch" href="license.html" class="nav-chapters next" title="Next chapter"
+                    aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             </nav>
 
         </div>
@@ -350,7 +364,7 @@ additional-js = [
                 }
             };
 
-            window.onbeforeunload = function() {
+            window.onbeforeunload = function () {
                 socket.close();
             }
         </script>
@@ -366,28 +380,33 @@ additional-js = [
 
         <script src="js/init.js"></script>
 
-        <script src="ace.js"></script>
-        <script src="editor.js"></script>
-        <script src="mode-rust.js"></script>
+        <script src="js/mermaid-init.js"></script>
+        <script src="js/mermaid.min.js"></script>
+
+        <script src="js/ace.js"></script>
+        <script src="js/ext-language_tools.js"></script>
+        <script src="js/editor.js"></script>
+
+        <script src="js/mode-rust.js"></script>
+        <script src="js/mode-c_cpp.js"></script>
+
         <script src="theme-dawn.js"></script>
         <script src="theme-tomorrow_night.js"></script>
 
-        <!-- Custom JS scripts -->
-        <script src="js/mermaid.min.js"></script>
-        <script src="js/mermaid-init.js"></script>
-        <script src="js/mode-c_cpp.js"></script>
-        <script src="js/editor.js"></script>
-        <script src="js/init.js"></script>
 
         <script src="elasticlunr.min.js"></script>
         <script src="mark.min.js"></script>
         <script src="searcher.js"></script>
 
         <script src="clipboard.min.js"></script>
+
         <script src="highlight.js"></script>
+        <script src="js/all-languages.min.js"></script> 
+
         <script src="book.js"></script>
 
 
     </div>
-    </body>
+</body>
+
 </html>
